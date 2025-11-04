@@ -11,6 +11,7 @@ app.use(
     methods: ["POST", "GET", "PUT", "DELETE"],
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
