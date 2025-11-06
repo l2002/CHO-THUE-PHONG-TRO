@@ -29,7 +29,7 @@ export const registerService = ({ phone, password, name }) =>
       resole({
         err: token ? 0 : 2,
         msg: token
-          ? "Register is successfully"
+          ? "Register is successfully !"
           : "Phone number has been aldready used",
         token: token || null,
       });
