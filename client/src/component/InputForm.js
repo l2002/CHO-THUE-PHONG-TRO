@@ -1,4 +1,13 @@
-function inputForm({ label, value, setValue, type }) {
+import { memo } from "react";
+
+const InputForm = ({
+  label,
+  value,
+  setValue,
+  type,
+  invalidFields,
+  setInvalidFields,
+}) => {
   return (
     <div>
       <label htmlFor="phone" className="text-xs">
@@ -12,9 +21,16 @@ function inputForm({ label, value, setValue, type }) {
         onChange={(e) =>
           setValue((prev) => ({ ...prev, [type]: e.target.value }))
         }
+        onFocus={() => setInvalidFields?.([])}
       />
+      {invalidFields.length > 0 &&
+        invalidFields.some((i) => i.name === type) && (
+          <small className="text-red-500 italic">
+            {invalidFields.find((i) => i.name === type)?.message}
+          </small>
+        )}
     </div>
   );
-}
+};
 
-export default inputForm;
+export default memo(InputForm);
