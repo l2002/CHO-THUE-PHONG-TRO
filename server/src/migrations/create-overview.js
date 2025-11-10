@@ -18,12 +18,6 @@ module.exports = {
       type: {
         type: Sequelize.STRING,
       },
-      target: {
-        type: Sequelize.STRING,
-      },
-      bonus: {
-        type: Sequelize.STRING,
-      },
       created: {
         type: "TIMESTAMP",
         allowNull: true,
