@@ -1,0 +1,4 @@
+INSERT INTO Categorys(code,value,header,subheader,createAt,updateAt) VALUES ("NNC","Nhà nguyên căn","Cho Thuê Nhà Nguyên Căn, Giá Rẻ, Chính Chủ, Mới Nhất 2025","",current_timestamp,current_timestamp);
+INSERT INTO Categorys(code,value,header,subheader,createAt,updateAt) VALUES ("CHMN","Căn hộ mini","Cho Thuê Căn Hộ Mini + Chung Cư Mini Giá Rẻ, Mới Nhất 2025","",current_timestamp,current_timestamp);
+INSERT INTO Categorys(code,value,header,subheader,createAt,updateAt) VALUES ("CHDV","Căn hộ dịch vụ","Cho Cho Thuê Căn Hộ Dịch Vụ, Giá Rẻ, Mới Nhất 2025","",current_timestamp,current_timestamp);
+INSERT INTO Categorys(code,value,header,subheader,createAt,updateAt) VALUES ("CHCC","Căn hộ chung cư","Cho Thuê Căn Hộ Chung Cư, Giá Rẻ, View Đẹp, Mới Nhất 2025","",current_timestamp,current_timestamp);

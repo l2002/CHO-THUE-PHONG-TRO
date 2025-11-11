@@ -4,9 +4,10 @@ const InputForm = ({
   label,
   value,
   setValue,
-  type,
+  keyPayload,
   invalidFields,
   setInvalidFields,
+  type,
 }) => {
   return (
     <div>
@@ -14,19 +15,19 @@ const InputForm = ({
         {label}
       </label>
       <input
-        type="text"
+        type={type || "text"}
         id="phone"
         className="outline-none bg-[#c8f0fc] p-2 rounded-md w-full"
         value={value}
         onChange={(e) =>
-          setValue((prev) => ({ ...prev, [type]: e.target.value }))
+          setValue((prev) => ({ ...prev, [keyPayload]: e.target.value }))
         }
         onFocus={() => setInvalidFields?.([])}
       />
       {invalidFields.length > 0 &&
-        invalidFields.some((i) => i.name === type) && (
+        invalidFields.some((i) => i.name === keyPayload) && (
           <small className="text-red-500 italic">
-            {invalidFields.find((i) => i.name === type)?.message}
+            {invalidFields.find((i) => i.name === keyPayload)?.message}
           </small>
         )}
     </div>
