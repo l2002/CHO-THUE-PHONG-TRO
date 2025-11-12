@@ -18,7 +18,7 @@ function Header() {
   const { isLoggedIn } = useSelector((state) => state.auth);
 
   const goLogin = useCallback((flag) => {
-    navigate(path.LOGIN, { state: { flag } });
+    navigate(`/${path.LOGIN}`, { state: { flag } });
   }, []);
 
   return (

@@ -2,3 +2,8 @@ export { default as Home } from "./Home";
 export { default as Login } from "./Login";
 export { default as Header } from "./Header";
 export { default as Nagivation } from "./Nagivation";
+export { default as NhaNguyenCan } from "./NhaNguyenCan";
+export { default as CanHoMini } from "./CanHoMini";
+export { default as CanHoDichVu } from "./CanHoDichVu";
+export { default as CanHoChungCu } from "./CanHoChungCu";
+export { default as HomePage } from "./HomePage";
