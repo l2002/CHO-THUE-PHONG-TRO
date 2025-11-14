@@ -2,12 +2,24 @@ import LoginIcon from "@mui/icons-material/Login";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import PostAddIcon from "@mui/icons-material/PostAdd";
 import LogoutIcon from "@mui/icons-material/Logout";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import LocationPinIcon from "@mui/icons-material/LocationPin";
+import LocalAtmIcon from "@mui/icons-material/LocalAtm";
+import CropIcon from "@mui/icons-material/Crop";
+import HouseIcon from "@mui/icons-material/House";
+import SearchIcon from "@mui/icons-material/Search";
 
 const icons = {
   LoginIcon,
   PersonAddAltIcon,
   PostAddIcon,
   LogoutIcon,
+  NavigateNextIcon,
+  LocationPinIcon,
+  LocalAtmIcon,
+  CropIcon,
+  HouseIcon,
+  SearchIcon,
 };
 
 export default icons;

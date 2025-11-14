@@ -22,7 +22,7 @@ function Header() {
   }, []);
 
   return (
-    <div className="w-1100">
+    <div className="w-3/5">
       <div className="w-full flex items-center justify-between bg-red-300">
         <Link to={"/"}>
           <img
