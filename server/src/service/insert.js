@@ -4,6 +4,7 @@ import { v4 } from "uuid";
 import canhochungcu from "../../data/canhochungcu.json";
 import generateCode from "../../ultis/generateCode";
 import parseVNDate from "../../ultis/parseVNDate";
+import { where } from "sequelize";
 require("dotenv").config();
 
 const dataBody = canhochungcu;
@@ -16,7 +17,7 @@ export const insertService = () =>
     try {
       dataBody.forEach(async (item) => {
         let postId = v4();
-        let labelCode = generateCode(4);
+        let labelCode = generateCode(item?.attributes?.district);
         let attributesId = v4();
         let userId = v4();
         let imagesId = v4();
@@ -45,9 +46,12 @@ export const insertService = () =>
           id: imagesId,
           image: JSON.stringify(item?.images),
         });
-        await db.Label.create({
-          code: labelCode,
-          value: item?.attributes?.district,
+        await db.Label.findOrCreate({
+          where: { code: labelCode },
+          defaults: {
+            code: labelCode,
+            value: item?.attributes?.district,
+          },
         });
         await db.Overview.create({
           id: overviewId,

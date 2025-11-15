@@ -13,7 +13,7 @@ const {
 
 function Search() {
   return (
-    <div className="p-[10px] bg-[#febb02] rounded-lg flex-col lg:flex-row flex items-center justify-around gap-2">
+    <div className="p-[10px] w-3/5 my-4 bg-[#febb02] rounded-lg flex-col lg:flex-row flex items-center justify-around gap-2">
       <SearchItem
         iconBefore={<HouseIcon />}
         fontWeight
