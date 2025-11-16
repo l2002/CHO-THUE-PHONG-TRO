@@ -1,4 +1,4 @@
-import { Button, InputForm } from "../../component";
+import { Button, InputForm } from "../../components";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as actions from "../../store/actions";

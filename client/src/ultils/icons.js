@@ -8,6 +8,9 @@ import LocalAtmIcon from "@mui/icons-material/LocalAtm";
 import CropIcon from "@mui/icons-material/Crop";
 import HouseIcon from "@mui/icons-material/House";
 import SearchIcon from "@mui/icons-material/Search";
+import StarIcon from "@mui/icons-material/Star";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const icons = {
   LoginIcon,
@@ -20,6 +23,9 @@ const icons = {
   CropIcon,
   HouseIcon,
   SearchIcon,
+  StarIcon,
+  FavoriteBorderIcon,
+  FavoriteIcon,
 };
 
 export default icons;

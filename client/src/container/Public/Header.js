@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import logo from "../../assets/logo.png";
-import { Button } from "../../component";
+import { Button } from "../../components";
 import icons from "../../ultils/icons";
 import { useNavigate, Link } from "react-router-dom";
 import { path } from "../../ultils/constant";

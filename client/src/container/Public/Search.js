@@ -1,5 +1,5 @@
 import React from "react";
-import { SearchItem } from "../../component";
+import { SearchItem } from "../../components";
 import icons from "../../ultils/icons";
 
 const {

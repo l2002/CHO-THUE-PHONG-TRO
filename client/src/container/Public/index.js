@@ -8,3 +8,4 @@ export { default as CanHoDichVu } from "./CanHoDichVu";
 export { default as CanHoChungCu } from "./CanHoChungCu";
 export { default as HomePage } from "./HomePage";
 export { default as Search } from "./Search";
+export { default as List } from "./List";
