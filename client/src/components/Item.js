@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import icons from "../ultils/icons";
 
 const { StarIcon, FavoriteBorderIcon, FavoriteIcon } = icons;
@@ -11,9 +11,11 @@ const images = [
 ];
 
 const Item = () => {
+  const [isHoverHeart, setIsHoverHeart] = useState(false);
+
   return (
-    <div className="w-full flex">
-      <div className="w-2/5 flex flex-wrap gap-[2px] items-center">
+    <div className="w-full flex border-t border-orange-600 p-4">
+      <div className="w-2/5 flex flex-wrap gap-[2px] items-center relative cursor-pointer">
         <img
           src={images[0]}
           alt="preview"
@@ -34,6 +36,20 @@ const Item = () => {
           alt="preview"
           className="w-[140px] h-[120px] object-cover"
         />
+        <span className="bg-overlay-70 text-white px-2 left-1 bottom-1 rounded-md absolute">
+          4 ảnh
+        </span>
+        <span
+          className=" text-white right-2 bottom-1 absolute"
+          onMouseEnter={() => setIsHoverHeart(true)}
+          onMouseLeave={() => setIsHoverHeart(false)}
+        >
+          {isHoverHeart ? (
+            <FavoriteIcon className="text-red-600" />
+          ) : (
+            <FavoriteBorderIcon />
+          )}
+        </span>
       </div>
       <div className="w-3/5">
         <div className="flex justify-between gap-4">

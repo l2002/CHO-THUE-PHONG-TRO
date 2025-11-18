@@ -10,6 +10,8 @@ module.exports = {
         primary: "#F5F5F5",
         secondary1: "#1266dd",
         secondary2: "#FF5723",
+        "overlay-30": "rgb(0,0,0,0.3)",
+        "overlay-70": "rgb(0,0,0,0.7)",
       },
       maxWidth: {
         600: "600px",
