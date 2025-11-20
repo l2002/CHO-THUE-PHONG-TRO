@@ -3,44 +3,40 @@ import icons from "../ultils/icons";
 
 const { StarIcon, FavoriteBorderIcon, FavoriteIcon } = icons;
 
-const images = [
-  "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2025/11/07/z7183338483360-c31608895aa733aca24fda2b604307d9_1762496581.jpg",
-  "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2025/11/07/z7183338491219-9e096774e76ad46af0759905dbd96b7e_1762496581.jpg",
-  "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2025/11/07/z7183338491347-27add9158bc2a8c43b25e3cf7eafa8dc_1762496582.jpg",
-  "https://pt123.cdn.static123.com/images/thumbs/900x600/fit/2025/11/07/z7183338505264-a27d848f02d5a2275f4caeb6791d8c03_1762496582.jpg",
-];
+const indexs = [0, 1, 2, 3];
 
-const Item = () => {
+const Item = ({
+  address,
+  attributes,
+  description,
+  images,
+  star,
+  title,
+  user,
+}) => {
   const [isHoverHeart, setIsHoverHeart] = useState(false);
 
   return (
-    <div className="w-full flex border-t border-orange-600 p-4">
+    <div className="w-full flex border-t border-orange-600 py-4">
       <div className="w-2/5 flex flex-wrap gap-[2px] items-center relative cursor-pointer">
-        <img
-          src={images[0]}
-          alt="preview"
-          className="w-[140px] h-[120px] object-cover"
-        />
-        <img
-          src={images[1]}
-          alt="preview"
-          className="w-[140px] h-[120px] object-cover"
-        />
-        <img
-          src={images[2]}
-          alt="preview"
-          className="w-[140px] h-[120px] object-cover"
-        />
-        <img
-          src={images[3]}
-          alt="preview"
-          className="w-[140px] h-[120px] object-cover"
-        />
-        <span className="bg-overlay-70 text-white px-2 left-1 bottom-1 rounded-md absolute">
-          4 ảnh
+        {images.length > 0 &&
+          images
+            .filter((i, index) => indexs.some((i) => i === index))
+            ?.map((i, index) => {
+              return (
+                <img
+                  key={index}
+                  src={i}
+                  alt="preview"
+                  className="w-[140px] h-[120px] object-cover"
+                />
+              );
+            })}
+        <span className="bg-overlay-70 text-white px-2 left-1 bottom-4 rounded-md absolute">
+          {`${images?.length} ảnh`}
         </span>
         <span
-          className=" text-white right-2 bottom-1 absolute"
+          className=" text-white right-4 bottom-1 absolute"
           onMouseEnter={() => setIsHoverHeart(true)}
           onMouseLeave={() => setIsHoverHeart(false)}
         >
@@ -54,22 +50,19 @@ const Item = () => {
       <div className="w-3/5">
         <div className="flex justify-between gap-4">
           <div className="text-blue-800 font-medium">
-            <StarIcon className="text-yellow-400" />
-            <StarIcon className="text-yellow-400" />
-            <StarIcon className="text-yellow-400" />
-            <StarIcon className="text-yellow-400" />
-            <StarIcon className="text-yellow-400" />
-            Nhà gần chợ Bình Trị Đông , ngang 4.6m có 4 phòng ngủ !
+            {Array.from({ length: star }).map((_, i) => (
+              <StarIcon key={i} className="text-yellow-400" />
+            ))}
+            {title}
           </div>
         </div>
         <div className="flex gap-4">
-          <span className="text-green-600 font-bold">11.5 triệu/tháng</span>
-          <span>50 m2</span>
+          <span className="text-green-600 font-bold">{attributes?.price}</span>
+          <span>{attributes?.acreage}</span>
         </div>
-        <p>Bình Tân, Hồ Chí Minh</p>
-        <p className="text-gray-500">
-          Cho thuê nhà ngang 4.6 m gần chợ Bình Trị Đông , hẻm xe hơi chỉ 11.5
-          triệu !Hẻm Bình Trị Đông ( gần Tên Lửa ) , BTĐ, Bình Tân.DT...
+        <p>{address}</p>
+        <p className="text-gray-500 w-full h-[50px] text-ellipsis overflow-hidden">
+          {description}
         </p>
         <div className="flex items-center my-5 justify-between">
           <div className="flex items-center">
@@ -78,14 +71,14 @@ const Item = () => {
               alt="avatar"
               className="w-[30px] h-[30px] object-cover"
             />
-            <p>Tue Thu</p>
+            <p>{user?.name}</p>
           </div>
           <div>
             <button
               type="button"
               className="bg-blue-700 text-white p-1 rounded-md"
             >
-              Goi 123456789
+              Goi {user?.phone}
             </button>
             <button
               type="button"

@@ -4,7 +4,7 @@ import { Search, Nagivation } from "./index";
 
 const Home = () => {
   return (
-    <div className="w-full flex flex-col items-center h-full border border-red-500">
+    <div className="w-full flex flex-col items-center h-full">
       <Header />
       <Nagivation />
       <Search />
