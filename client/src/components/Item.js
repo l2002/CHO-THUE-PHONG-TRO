@@ -60,7 +60,9 @@ const Item = ({
           <span className="text-green-600 font-bold">{attributes?.price}</span>
           <span>{attributes?.acreage}</span>
         </div>
-        <p>{address}</p>
+        <p>{`${address.split(",")[address.split(",").length - 2]}${
+          address.split(",")[address.split(",").length - 1]
+        }`}</p>
         <p className="text-gray-500 w-full h-[50px] text-ellipsis overflow-hidden">
           {description}
         </p>

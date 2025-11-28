@@ -11,6 +11,8 @@ import SearchIcon from "@mui/icons-material/Search";
 import StarIcon from "@mui/icons-material/Star";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const icons = {
   LoginIcon,
@@ -26,6 +28,8 @@ const icons = {
   StarIcon,
   FavoriteBorderIcon,
   FavoriteIcon,
+  ArrowForwardIcon,
+  ArrowBackIcon,
 };
 
 export default icons;
