@@ -8,7 +8,7 @@ const { ArrowForwardIcon, ArrowBackIcon } = icons;
 const Pagination = ({ page }) => {
   const { count, posts } = useSelector((state) => state.post);
   const [arrPage, setArrPage] = useState([]);
-  const [currentPage, setCurrentPage] = useState(+page);
+  const [currentPage, setCurrentPage] = useState(+page || 1);
   const [isHideEnd, setIsHideEnd] = useState();
   const [isHideStart, setIsHideStart] = useState();
 

@@ -7,6 +7,7 @@ import {
   CanHoDichVu,
   CanHoChungCu,
   HomePage,
+  DetailPost,
 } from "./container/Public";
 import { path } from "./ultils/constant";
 
@@ -22,6 +23,11 @@ function App() {
           <Route path={path.CAN_HO_MINI} element={<CanHoMini />} />
           <Route path={path.CAN_HO_DICH_VU} element={<CanHoDichVu />} />
           <Route path={path.CAN_HO_CHUNG_CU} element={<CanHoChungCu />} />
+          <Route
+            path={path.DETAIL_POST__TITLE__POSTID}
+            element={<DetailPost />}
+          />
+          <Route path={"chi-tiet/*"} element={<DetailPost />} />
         </Route>
       </Routes>
     </div>

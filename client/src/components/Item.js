@@ -1,5 +1,7 @@
 import { memo, useState } from "react";
 import icons from "../ultils/icons";
+import { useNavigate, Link } from "react-router-dom";
+import { formatVietnameseToString } from "../ultils/Common/formatVietnameseToString";
 
 const { StarIcon, FavoriteBorderIcon, FavoriteIcon } = icons;
 
@@ -13,12 +15,17 @@ const Item = ({
   star,
   title,
   user,
+  id,
 }) => {
   const [isHoverHeart, setIsHoverHeart] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="w-full flex border-t border-orange-600 py-4">
-      <div className="w-2/5 flex flex-wrap gap-[2px] items-center relative cursor-pointer">
+      <Link
+        to={`chi-tiet/${formatVietnameseToString(title)}/${id}`}
+        className="w-2/5 flex flex-wrap gap-[2px] items-center relative cursor-pointer"
+      >
         {images.length > 0 &&
           images
             .filter((i, index) => indexs.some((i) => i === index))
@@ -46,7 +53,7 @@ const Item = ({
             <FavoriteBorderIcon />
           )}
         </span>
-      </div>
+      </Link>
       <div className="w-3/5">
         <div className="flex justify-between gap-4">
           <div className="text-blue-800 font-medium">

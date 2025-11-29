@@ -6,6 +6,7 @@ export const path = {
   CAN_HO_MINI: "can-ho-mini",
   CAN_HO_DICH_VU: "can-ho-dich-vu",
   CAN_HO_CHUNG_CU: "can-ho-chung-cu",
+  DETAIL_POST__TITLE__POSTID: "chi-tiet/:title/:postId",
 };
 
 export const text = {
