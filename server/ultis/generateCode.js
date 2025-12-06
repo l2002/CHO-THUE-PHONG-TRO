@@ -3,7 +3,6 @@ require("dotenv").config();
 const generateCode = (value) => {
   let output = "";
   value = value
-    .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .split(" ")
@@ -18,7 +17,7 @@ const generateCode = (value) => {
     output += merge.charAt(index);
     length = index;
   }
-  return `${value.charAt(0)}${output}`.toLocaleUpperCase();
+  return `${value.charAt(2)}${output}`.toUpperCase();
 };
 
 export default generateCode;

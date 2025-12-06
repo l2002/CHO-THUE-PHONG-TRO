@@ -27,7 +27,6 @@ function App() {
             path={path.DETAIL_POST__TITLE__POSTID}
             element={<DetailPost />}
           />
-          <Route path={"chi-tiet/*"} element={<DetailPost />} />
         </Route>
       </Routes>
     </div>

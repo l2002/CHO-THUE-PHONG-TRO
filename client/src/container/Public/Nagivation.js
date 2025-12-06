@@ -1,7 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { apiGetCategories } from "../../services/category";
+import { useEffect } from "react";
 import { formatVietnameseToString } from "../../ultils/Common/formatVietnameseToString";
+import { useDispatch, useSelector } from "react-redux";
+import * as actions from "../../store/actions";
 
 const notActive =
   "hover:bg-secondary2 py-2 px-4 h-full flex justify-center bg-secondary1";
@@ -9,15 +10,11 @@ const active =
   "hover:bg-secondary2 py-2 px-4 h-full flex justify-center bg-secondary2";
 
 function Nagivation() {
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.app);
   useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await apiGetCategories();
-      if (response?.data.err === 0) {
-        setCategories(response.data.response);
-      }
-    };
-    fetchCategories();
+    dispatch(actions.getCategories());
   }, []);
 
   return (

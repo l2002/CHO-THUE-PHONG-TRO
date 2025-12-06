@@ -2,10 +2,22 @@ import { text } from "../../ultils/constant";
 import Province from "../../components/Province";
 import { List, Pagination } from "./index";
 import { useSearchParams } from "react-router-dom";
+import { ItemSidebar } from "../../components";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import * as actions from "../../store/actions";
 
 const HomePage = () => {
   const [params] = useSearchParams();
+  const { categories, prices, areas } = useSelector((state) => state.app);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(actions.getPrices());
+    dispatch(actions.getAreas());
+  }, []);
+
+  console.log(areas);
   return (
     <div className="w-full flex flex-col gap-3">
       <div>
@@ -18,7 +30,15 @@ const HomePage = () => {
           <List page={params.get("page")} />
           <Pagination page={params.get("page")} />
         </div>
-        <div className="w-[30%] border border-green-700">Sidebar</div>
+        <div className="w-[30%] border border-green-700 flex flex-col justify-start gap-4">
+          <ItemSidebar content={categories} title="Danh sách cho thuê" />
+          <ItemSidebar isDouble={true} content={prices} title="Xem theo giá" />
+          <ItemSidebar
+            isDouble={true}
+            content={areas}
+            title="Xem theo diện tích"
+          />
+        </div>
       </div>
     </div>
   );
