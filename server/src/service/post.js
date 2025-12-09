@@ -35,13 +35,14 @@ export const getPostsService = () =>
     }
   });
 
-export const getPostsLimitService = (offset) =>
+export const getPostsLimitService = (page, query) =>
   new Promise(async (resolve, reject) => {
     try {
       const response = await db.Post.findAndCountAll({
+        where: query,
         raw: true,
         nest: true,
-        offset: offset * +process.env.LIMIT || 0,
+        offset: page * +process.env.LIMIT || 0,
         limit: +process.env.LIMIT, // chuyen string sang integer
         include: [
           {

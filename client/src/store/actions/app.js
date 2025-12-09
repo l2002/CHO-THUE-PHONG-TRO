@@ -31,7 +31,7 @@ export const getPrices = () => async (dispatch) => {
       dispatch({
         type: actionTypes.GET_PRICES,
         prices: response.data.response.sort((a, b) => {
-          return +a.sort - +b.sort;
+          return +a.order - +b.order;
         }),
       });
     } else {
@@ -56,7 +56,7 @@ export const getAreas = () => async (dispatch) => {
       dispatch({
         type: actionTypes.GET_AREAS,
         areas: response.data.response.sort((a, b) => {
-          return +a.sort - +b.sort;
+          return +a.order - +b.order;
         }),
       });
     } else {

@@ -32,8 +32,14 @@ const HomePage = () => {
         </div>
         <div className="w-[30%] border border-green-700 flex flex-col justify-start gap-4">
           <ItemSidebar content={categories} title="Danh sách cho thuê" />
-          <ItemSidebar isDouble={true} content={prices} title="Xem theo giá" />
           <ItemSidebar
+            type="priceCode"
+            isDouble={true}
+            content={prices}
+            title="Xem theo giá"
+          />
+          <ItemSidebar
+            type="areaCode"
             isDouble={true}
             content={areas}
             title="Xem theo diện tích"

@@ -12,6 +12,7 @@ const List = ({ page }) => {
     let offset = page ? page - 1 : 0;
     dispatch(getPostsLimit(offset));
   }, [page]);
+
   return (
     <div className="w-full rounded-md p-2 bg-white shadow-md px-6">
       <div className="flex items-center justify-between my-3">
