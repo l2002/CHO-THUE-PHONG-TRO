@@ -3,15 +3,24 @@ import { Button } from "../../components";
 import { Item } from "../../components";
 import { getPosts, getPostsLimit } from "../../store/actions/post";
 import { useDispatch, useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
 const List = ({ page }) => {
   const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
   const { posts } = useSelector((state) => state.post);
 
   useEffect(() => {
-    let offset = page ? page - 1 : 0;
-    dispatch(getPostsLimit(offset));
-  }, [page]);
+    let params = [];
+    for (let entry of searchParams.entries()) {
+      params.push(entry);
+    }
+    let searchParamsObject = {};
+    params?.map((i) => {
+      searchParamsObject = { ...searchParamsObject, [i[0]]: i[1] };
+    });
+    dispatch(getPostsLimit(searchParams));
+  }, [searchParams]);
 
   return (
     <div className="w-full rounded-md p-2 bg-white shadow-md px-6">

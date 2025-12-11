@@ -25,11 +25,10 @@ const ItemSidebar = ({ title, content, isDouble, type }) => {
   };
 
   const handleFilterPost = (code) => {
-    dispatch(actions.getPostsLimit({ [type]: code }));
     navigate({
       pathname: location.pathname,
       search: createSearchParams({
-        type: code,
+        priceCode: code,
       }).toString(),
     });
   };
@@ -61,11 +60,11 @@ const ItemSidebar = ({ title, content, isDouble, type }) => {
             formatContent(content).map((item, index) => {
               return (
                 <div key={index} className="">
-                  <div
-                    onClick={() => handleFilterPost(item.left.code)}
-                    className="flex items-center justify-around"
-                  >
-                    <div className="flex flex-1 gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 pb-1 border-dashed">
+                  <div className="flex items-center justify-around">
+                    <div
+                      onClick={() => handleFilterPost(item.left.code)}
+                      className="flex flex-1 gap-2 items-center cursor-pointer hover:text-orange-600 border-b border-gray-200 pb-1 border-dashed"
+                    >
                       <NavigateNextIcon />
                       <p>{item.left.value}</p>
                     </div>

@@ -10,7 +10,7 @@ import { getNumberFromString } from "../../ultis/common";
 
 require("dotenv").config();
 
-const dataBody = nhanguyencan;
+const dataBody = canhochungcu;
 
 const hashPassword = (password) =>
   bcrypt.hashSync(password, bcrypt.genSaltSync(12));

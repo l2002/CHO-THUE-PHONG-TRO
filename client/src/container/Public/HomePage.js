@@ -17,7 +17,6 @@ const HomePage = () => {
     dispatch(actions.getAreas());
   }, []);
 
-  console.log(areas);
   return (
     <div className="w-full flex flex-col gap-3">
       <div>
@@ -27,7 +26,7 @@ const HomePage = () => {
       <Province />
       <div className="w-full flex gap-4">
         <div className="w-[70%]">
-          <List page={params.get("page")} />
+          <List />
           <Pagination page={params.get("page")} />
         </div>
         <div className="w-[30%] border border-green-700 flex flex-col justify-start gap-4">

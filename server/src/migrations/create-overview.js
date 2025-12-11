@@ -22,10 +22,6 @@ module.exports = {
         type: "TIMESTAMP",
         allowNull: true,
       },
-      expire: {
-        type: "TIMESTAMP",
-        allowNull: true,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

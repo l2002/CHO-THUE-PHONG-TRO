@@ -17,7 +17,6 @@ function App() {
       <Routes>
         <Route path={path.HOME} element={<Home />}>
           <Route path={"*"} element={<HomePage />} />
-          <Route path={path.HOME__PAGE} element={<HomePage />} />
           <Route path={path.LOGIN} element={<Login />} />
           <Route path={path.NHA_NGUYEN_CAN} element={<NhaNguyenCan />} />
           <Route path={path.CAN_HO_MINI} element={<CanHoMini />} />
