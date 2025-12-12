@@ -1,10 +1,11 @@
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
 import { Search, Nagivation } from "./index";
+import { Contact, Intro } from "../../components";
 
 const Home = () => {
   return (
-    <div className="w-full flex flex-col items-center h-full">
+    <div className="w-full flex flex-col items-center h-full gap-4">
       <Header />
       <Nagivation />
       <Search />
@@ -12,6 +13,8 @@ const Home = () => {
         {/* Hiển thị các Route con nằm trong Route cha */}
         <Outlet />
       </div>
+      <Intro />
+      <Contact />
     </div>
   );
 };

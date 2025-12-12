@@ -27,7 +27,7 @@ const HomePage = () => {
           <List />
           <Pagination />
         </div>
-        <div className="w-[30%] border border-green-700 flex flex-col justify-start gap-4">
+        <div className="w-[30%] flex flex-col justify-start gap-4">
           <ItemSidebar content={categories} title="Danh sách cho thuê" />
           <ItemSidebar
             type="priceCode"
