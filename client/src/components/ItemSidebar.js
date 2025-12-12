@@ -2,13 +2,11 @@ import React, { memo } from "react";
 import icons from "../ultils/icons";
 import { formatVietnameseToString } from "../ultils/Common/formatVietnameseToString";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import * as actions from "../store/actions";
+
 import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 
 const { NavigateNextIcon } = icons;
 const ItemSidebar = ({ title, content, isDouble, type }) => {
-  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -28,7 +26,7 @@ const ItemSidebar = ({ title, content, isDouble, type }) => {
     navigate({
       pathname: location.pathname,
       search: createSearchParams({
-        priceCode: code,
+        [type]: code,
       }).toString(),
     });
   };

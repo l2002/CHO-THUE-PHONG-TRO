@@ -27,6 +27,7 @@ export const insertService = () =>
         let overviewId = v4();
         let currentArea = getNumberFromString(item?.header?.area);
         let currentPrice = getNumberFromString(item?.header?.price);
+
         await db.Post.create({
           id: postId,
           star: item?.header?.star,
@@ -34,7 +35,7 @@ export const insertService = () =>
           labelCode,
           address: item?.attributes?.address,
           attributesId,
-          categoryCode: "NNC",
+          categoryCode: "CHCC",
           description: JSON.stringify(item?.mainContent?.mainContentContent),
           userId,
           overviewId,
