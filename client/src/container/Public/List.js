@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../../components";
 import { Item } from "../../components";
 import { getPosts, getPostsLimit } from "../../store/actions/post";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
-const List = ({ page }) => {
+const List = ({ categoryCode }) => {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const { posts } = useSelector((state) => state.post);
@@ -19,9 +19,11 @@ const List = ({ page }) => {
     params?.map((i) => {
       searchParamsObject = { ...searchParamsObject, [i[0]]: i[1] };
     });
-    dispatch(getPostsLimit(searchParams));
-  }, [searchParams]);
+    if (categoryCode) searchParamsObject.categoryCode = categoryCode;
+    dispatch(getPostsLimit(searchParamsObject));
+  }, [searchParams, categoryCode]);
 
+  console.log(categoryCode);
   return (
     <div className="w-full rounded-md p-2 bg-white shadow-md px-6">
       <div className="flex items-center justify-between my-3">

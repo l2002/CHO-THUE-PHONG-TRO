@@ -2,25 +2,41 @@ import { text } from "../../ultils/constant";
 import Province from "../../components/Province";
 import { List, Pagination } from "./index";
 import { ItemSidebar, RelatedPost } from "../../components";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { formatVietnameseToString } from "../../ultils/Common/formatVietnameseToString";
 
-const HomePage = () => {
+const Rental = () => {
   const { categories, prices, areas } = useSelector((state) => state.app);
+  const [categoryCode, setCategoryCode] = useState("none");
+  const [currentCategory, setCurrentCategory] = useState({});
+  const location = useLocation();
 
+  useEffect(() => {
+    const category = categories?.find(
+      (item) => `/${formatVietnameseToString(item.value)}` === location.pathname
+    );
+    setCurrentCategory(category);
+    if (category) {
+      setCategoryCode(category.code);
+    }
+  }, [location]);
+
+  console.log(categoryCode);
   return (
     <div className="w-full flex flex-col gap-3">
       <div>
-        <h1 className="text-[28px] font-bold">{text.HOME_TITLE}</h1>
+        <h1 className="text-[28px] font-bold">{currentCategory?.header}</h1>
         <p className="text-base text-gray-700">{text.HOME_DESCRIPTION}</p>
       </div>
       <Province />
       <div className="w-full flex gap-4">
         <div className="w-[70%]">
-          <List />
+          <List categoryCode={categoryCode} />
           <Pagination />
         </div>
         <div className="w-[30%] flex flex-col justify-start gap-4">
-          <ItemSidebar content={categories} title="Danh sách cho thuê" />
           <ItemSidebar
             type="priceCode"
             isDouble={true}
@@ -40,4 +56,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Rental;
