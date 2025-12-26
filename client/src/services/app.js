@@ -25,3 +25,16 @@ export const apiGetAreas = (payload) =>
       reject(error);
     }
   });
+
+export const apiGetProvinces = (payload) =>
+  new Promise(async (resole, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: "get",
+        url: "/api/v1/province/all",
+      });
+      resole(response);
+    } catch (error) {
+      reject(error);
+    }
+  });

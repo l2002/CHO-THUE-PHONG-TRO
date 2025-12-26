@@ -8,6 +8,7 @@ export const getCategories = () => async (dispatch) => {
       dispatch({
         type: actionTypes.GET_CATEGORIES,
         categories: response.data.response,
+        msg: "",
       });
     } else {
       dispatch({
@@ -20,6 +21,7 @@ export const getCategories = () => async (dispatch) => {
     dispatch({
       type: actionTypes.GET_CATEGORIES,
       categories: null,
+      msg: error,
     });
   }
 };
@@ -33,6 +35,7 @@ export const getPrices = () => async (dispatch) => {
         prices: response.data.response.sort((a, b) => {
           return +a.order - +b.order;
         }),
+        msg: "",
       });
     } else {
       dispatch({
@@ -45,6 +48,7 @@ export const getPrices = () => async (dispatch) => {
     dispatch({
       type: actionTypes.GET_PRICES,
       prices: null,
+      msg: error,
     });
   }
 };
@@ -58,6 +62,7 @@ export const getAreas = () => async (dispatch) => {
         areas: response.data.response.sort((a, b) => {
           return +a.order - +b.order;
         }),
+        msg: "",
       });
     } else {
       dispatch({
@@ -70,6 +75,32 @@ export const getAreas = () => async (dispatch) => {
     dispatch({
       type: actionTypes.GET_AREAS,
       areas: null,
+      msg: error,
+    });
+  }
+};
+
+export const getProvinces = () => async (dispatch) => {
+  try {
+    const response = await apis.apiGetProvinces();
+    if (response?.data.err === 0) {
+      dispatch({
+        type: actionTypes.GET_PROVINCE,
+        provinces: response.data.response,
+        msg: "",
+      });
+    } else {
+      dispatch({
+        type: actionTypes.GET_PROVINCE,
+        msg: response.data.msg,
+        provinces: null,
+      });
+    }
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_PROVINCE,
+      provinces: null,
+      msg: error,
     });
   }
 };

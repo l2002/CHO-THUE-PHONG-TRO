@@ -12,7 +12,24 @@ import { getNumberFromString } from "../../ultis/common";
 
 require("dotenv").config();
 
-const dataBody = [canhochungcu, canhodichvu, canhomini, nhanguyencan];
+const dataBody = [
+  {
+    body: canhochungcu,
+    code: "CHCC",
+  },
+  {
+    body: canhodichvu,
+    code: "CHDV",
+  },
+  {
+    body: canhomini,
+    code: "CHMN",
+  },
+  {
+    body: nhanguyencan,
+    code: "NNC ",
+  },
+];
 
 const hashPassword = (password) =>
   bcrypt.hashSync(password, bcrypt.genSaltSync(12));
@@ -23,7 +40,7 @@ export const insertService = () =>
       const provinceCodes = [];
       const labelCodes = [];
       dataBody.forEach((cate) => {
-        cate.forEach(async (item) => {
+        cate.body.forEach(async (item) => {
           let postId = v4();
 
           let labelCode = generateCode(item?.attributes?.district).trim();
@@ -56,7 +73,7 @@ export const insertService = () =>
             labelCode,
             address: item?.attributes?.address,
             attributesId,
-            categoryCode: "CHCC",
+            categoryCode: cate.code,
             description: JSON.stringify(item?.mainContent?.mainContentContent),
             userId,
             overviewId,

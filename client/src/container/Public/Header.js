@@ -28,7 +28,7 @@ function Header() {
   }, [searchParams.get("page")]);
   return (
     <div ref={headerRef} className="w-3/5">
-      <div className="w-full flex items-center justify-between bg-red-300">
+      <div className="w-full flex items-center justify-between bg-[#f5f5f5]">
         <Link to={"/"}>
           <img
             className="w-[240px] h-[70px] object-contain"

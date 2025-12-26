@@ -12,6 +12,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(actions.getPrices());
     dispatch(actions.getAreas());
+    dispatch(actions.getProvinces());
   }, []);
   return (
     <div className="w-full flex flex-col items-center h-full gap-4">
