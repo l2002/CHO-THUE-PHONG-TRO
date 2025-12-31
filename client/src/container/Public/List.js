@@ -23,7 +23,6 @@ const List = ({ categoryCode }) => {
     dispatch(getPostsLimit(searchParamsObject));
   }, [searchParams, categoryCode]);
 
-  console.log(categoryCode);
   return (
     <div className="w-full rounded-md p-2 bg-white shadow-md px-6">
       <div className="flex items-center justify-between my-3">
