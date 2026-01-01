@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { SearchItem, Modal } from "../../components";
 import icons from "../../ultils/icons";
 import { useSelector } from "react-redux";
@@ -16,6 +16,7 @@ function Search() {
   const [isShowModal, setIsShowModal] = useState(false);
   const [content, setContent] = useState([]);
   const [name, setName] = useState("");
+  const [queries, setQueries] = useState({});
   const { areas, prices, provinces, categories } = useSelector(
     (state) => state.app
   );
@@ -26,6 +27,15 @@ function Search() {
     setIsShowModal(true);
   };
 
+  const handelSubmit = useCallback(
+    (e, query) => {
+      e.stopPropagation();
+      setQueries((prev) => ({ ...prev, ...query }));
+      setIsShowModal(false);
+    },
+    [isShowModal, queries]
+  );
+  console.log(queries);
   return (
     <>
       <div className="p-[10px] w-3/5 my-4 bg-[#febb02] rounded-lg flex-col lg:flex-row flex items-center justify-around gap-2">
@@ -36,7 +46,8 @@ function Search() {
           <SearchItem
             iconBefore={<HouseIcon />}
             fontWeight
-            text="Phòng trọ, nhà trọ"
+            text={queries.categories}
+            defaultText="Phòng trọ, nhà trọ"
           />
         </span>
         <span
@@ -45,7 +56,8 @@ function Search() {
         >
           <SearchItem
             iconBefore={<LocationPinIcon />}
-            text="Toàn quốc"
+            text={queries.provinces}
+            defaultText="Toàn quốc"
             iconAfter={<NavigateNextIcon />}
           />
         </span>
@@ -55,7 +67,8 @@ function Search() {
         >
           <SearchItem
             iconBefore={<LocalAtmIcon />}
-            text="Chọn giá"
+            text={queries.prices}
+            defaultText="Chọn giá"
             iconAfter={<NavigateNextIcon />}
           />
         </span>
@@ -65,7 +78,8 @@ function Search() {
         >
           <SearchItem
             iconBefore={<CropIcon />}
-            text="Chọn diện tích"
+            text={queries.areas}
+            defaultText="Chọn diện tích"
             iconAfter={<NavigateNextIcon />}
           />
         </span>
@@ -78,7 +92,13 @@ function Search() {
         </button>
       </div>
       {isShowModal && (
-        <Modal content={content} name={name} setIsShowModal={setIsShowModal} />
+        <Modal
+          content={content}
+          name={name}
+          queries={queries}
+          setIsShowModal={setIsShowModal}
+          handelSubmit={handelSubmit}
+        />
       )}
     </>
   );

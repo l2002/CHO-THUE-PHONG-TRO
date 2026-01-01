@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import icons from "../ultils/icons";
 
 const { ArrowBackIcon } = icons;
-const Modal = ({ setIsShowModal, content, name }) => {
+const Modal = ({ setIsShowModal, content, name, handelSubmit, queries }) => {
   const [percent1, setPercent1] = useState(0);
   const [percent2, setPercent2] = useState(100);
   const [activedEl, setActivedEl] = useState("");
@@ -43,7 +43,7 @@ const Modal = ({ setIsShowModal, content, name }) => {
       ? Math.ceil(Math.round(percent * 0.9) / 5) * 5
       : 0;
   };
-  const convert15to100 = (percent) => {
+  const convertto100 = (percent) => {
     let target = name === "prices" ? 15 : name === "areas" ? 90 : 1;
     return Math.floor((percent / target) * 100);
   };
@@ -66,11 +66,11 @@ const Modal = ({ setIsShowModal, content, name }) => {
     if (arrMaxMin.length === 1) {
       if (arrMaxMin[0] === 1) {
         setPercent1(0);
-        setPercent2(convert15to100(1));
+        setPercent2(convertto100(1));
       }
       if (arrMaxMin[0] === 20) {
         setPercent1(0);
-        setPercent2(convert15to100(20));
+        setPercent2(convertto100(20));
       }
       if (arrMaxMin[0] === 15 || arrMaxMin[0] === 90) {
         setPercent1(100);
@@ -78,8 +78,8 @@ const Modal = ({ setIsShowModal, content, name }) => {
       }
     }
     if (arrMaxMin.length === 2) {
-      setPercent1(convert15to100(arrMaxMin[0]));
-      setPercent2(convert15to100(arrMaxMin[1]));
+      setPercent1(convertto100(arrMaxMin[0]));
+      setPercent2(convertto100(arrMaxMin[1]));
     }
   };
   return (
@@ -118,6 +118,15 @@ const Modal = ({ setIsShowModal, content, name }) => {
                     name={name}
                     id={item.code}
                     value={item.code}
+                    checked={
+                      item.code === queries[`${name}Code`] ? true : false
+                    }
+                    onClick={(e) =>
+                      handelSubmit(e, {
+                        [name]: item.value,
+                        [`${name}Code`]: item.code,
+                      })
+                    }
                   />
                   <label htmlFor={item.code}>{item.value}</label>
                 </span>
@@ -129,15 +138,19 @@ const Modal = ({ setIsShowModal, content, name }) => {
           <div className="p-12 py-20">
             <div className="flex flex-col items-center justify-center relative">
               <div className="z-30 absolute top-[-48px] font-bold text-xl text-orange-600">
-                {`Từ ${
-                  percent1 <= percent2
-                    ? convert100toTarget(percent1)
-                    : convert100toTarget(percent2)
-                } - ${
-                  percent2 >= percent1
-                    ? convert100toTarget(percent2)
-                    : convert100toTarget(percent1)
-                } ${name === "prices" ? "triệu" : "m2"}`}
+                {percent1 === 100 && percent2 === 100
+                  ? `Trên ${convert100toTarget(percent1)} ${
+                      name === "prices" ? "triệu" : "m2"
+                    } +`
+                  : `Từ ${
+                      percent1 <= percent2
+                        ? convert100toTarget(percent1)
+                        : convert100toTarget(percent2)
+                    } - ${
+                      percent2 >= percent1
+                        ? convert100toTarget(percent2)
+                        : convert100toTarget(percent1)
+                    } ${name === "prices" ? "triệu" : "m2"}`}
               </div>
               <div
                 onClick={handleClickTrack}
