@@ -16,7 +16,8 @@ Hướng đến đối tượng **sinh viên, người đi làm** đang cần t�
 - Bộ lọc realtime, dễ thao tác
 
 📷 **Hình ảnh minh họa**  
-![Tìm kiếm phòng trọ](<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/ad213687-c4ee-4299-927d-717f6f457203" />)
+![Tìm kiếm phòng trọ](<img width="328" height="571" alt="image" src="https://github.com/user-attachments/assets/092df755-529c-424a-9f29-e806c7afc6b0" />
+)
 
 ---
 
