@@ -2,6 +2,8 @@ import { useCallback, useState } from "react";
 import { SearchItem, Modal } from "../../components";
 import icons from "../../ultils/icons";
 import { useSelector } from "react-redux";
+import { getCodePrices } from "../../ultils/Common/getCodes";
+import { getCodesAreas } from "../../ultils/Common/getCodes";
 
 const {
   NavigateNextIcon,
@@ -17,6 +19,7 @@ function Search() {
   const [content, setContent] = useState([]);
   const [name, setName] = useState("");
   const [queries, setQueries] = useState({});
+  const [arrMinMax, setArrMinMax] = useState({});
   const { areas, prices, provinces, categories } = useSelector(
     (state) => state.app
   );
@@ -28,10 +31,11 @@ function Search() {
   };
 
   const handelSubmit = useCallback(
-    (e, query) => {
+    (e, query, arrMinMax) => {
       e.stopPropagation();
       setQueries((prev) => ({ ...prev, ...query }));
       setIsShowModal(false);
+      arrMinMax && setArrMinMax((prev) => ({ ...prev, ...arrMinMax }));
     },
     [isShowModal, queries]
   );
@@ -98,6 +102,7 @@ function Search() {
           queries={queries}
           setIsShowModal={setIsShowModal}
           handelSubmit={handelSubmit}
+          arrMinMax={arrMinMax}
         />
       )}
     </>

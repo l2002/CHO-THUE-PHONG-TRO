@@ -1,11 +1,39 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import icons from "../ultils/icons";
+import { getNumbersPrice, getNumbersArea } from "../ultils/Common/getNumbers";
+import {
+  getCodesPrice,
+  getCodePrices,
+  getCodesAreas,
+} from "../ultils/Common/getCodes";
 
 const { ArrowBackIcon } = icons;
-const Modal = ({ setIsShowModal, content, name, handelSubmit, queries }) => {
+const Modal = ({
+  setIsShowModal,
+  content,
+  name,
+  handelSubmit,
+  queries,
+  arrMinMax,
+}) => {
   const [percent1, setPercent1] = useState(0);
   const [percent2, setPercent2] = useState(100);
+
   const [activedEl, setActivedEl] = useState("");
+
+  useEffect(() => {
+    if (!arrMinMax) return;
+
+    if (name === "prices") {
+      setPercent1(arrMinMax.pricesArr?.[0] ?? 0);
+      setPercent2(arrMinMax.pricesArr?.[1] ?? 100);
+    }
+
+    if (name === "areas") {
+      setPercent1(arrMinMax.areasArr?.[0] ?? 0);
+      setPercent2(arrMinMax.areasArr?.[1] ?? 100);
+    }
+  }, [arrMinMax, name]);
 
   useEffect(() => {
     const activeTrackEl = document.getElementById("track-active");
@@ -48,21 +76,10 @@ const Modal = ({ setIsShowModal, content, name, handelSubmit, queries }) => {
     return Math.floor((percent / target) * 100);
   };
 
-  const getNumbers = (string) =>
-    string
-      .split(" ")
-      .map((item) => +item)
-      .filter((item) => !item === false);
-  const getNumbersArea = (string) =>
-    string
-      .split(" ")
-      .map((item) => +item.match(/\d+/))
-      .filter((item) => item !== 0);
-
   const handleActive = (code, value) => {
     setActivedEl(code);
     let arrMaxMin =
-      name === "prices" ? getNumbers(value) : getNumbersArea(value);
+      name === "prices" ? getNumbersPrice(value) : getNumbersArea(value);
     if (arrMaxMin.length === 1) {
       if (arrMaxMin[0] === 1) {
         setPercent1(0);
@@ -82,6 +99,34 @@ const Modal = ({ setIsShowModal, content, name, handelSubmit, queries }) => {
       setPercent2(convertto100(arrMaxMin[1]));
     }
   };
+
+  const handleBeforeSubmit = (e) => {
+    const gaps =
+      name === "prices"
+        ? getCodesPrice(
+            [convert100toTarget(percent1), convert100toTarget(percent2)],
+            content
+          )
+        : name === "areas"
+        ? getCodesAreas(
+            [convert100toTarget(percent1), convert100toTarget(percent2)],
+            content
+          )
+        : [];
+    handelSubmit(
+      e,
+      {
+        [`${name}Code`]: gaps?.map((item) => item.code),
+        [name]: `Từ ${convert100toTarget(percent1)} - ${convert100toTarget(
+          percent2
+        )} ${name === "prices" ? "triệu" : "m2"}`,
+      },
+      {
+        [`${name}Arr`]: [percent1, percent2],
+      }
+    );
+  };
+
   return (
     <div
       onClick={(e) => {
@@ -121,7 +166,7 @@ const Modal = ({ setIsShowModal, content, name, handelSubmit, queries }) => {
                     checked={
                       item.code === queries[`${name}Code`] ? true : false
                     }
-                    onClick={(e) =>
+                    onChange={(e) =>
                       handelSubmit(e, {
                         [name]: item.value,
                         [`${name}Code`]: item.code,
@@ -235,6 +280,7 @@ const Modal = ({ setIsShowModal, content, name, handelSubmit, queries }) => {
           <button
             type="button"
             className="w-full bg-orange-400 py-2 font-medium rounded-bl-md rounded-br-md"
+            onClick={handleBeforeSubmit}
           >
             ÁP DỤNG
           </button>
@@ -244,4 +290,4 @@ const Modal = ({ setIsShowModal, content, name, handelSubmit, queries }) => {
   );
 };
 
-export default Modal;
+export default memo(Modal);
