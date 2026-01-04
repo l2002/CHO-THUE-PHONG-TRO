@@ -3,6 +3,7 @@ require("dotenv").config();
 import cors from "cors";
 import initRoutes from "./src/routes";
 import connectDB from "./src/config/connectDB";
+import qs from "qs";
 
 const app = express();
 app.use(
@@ -14,6 +15,8 @@ app.use(
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.set("query parser", (str) => qs.parse(str));
 
 initRoutes(app);
 connectDB();

@@ -24,14 +24,14 @@ const Modal = ({
   useEffect(() => {
     if (!arrMinMax) return;
 
-    if (name === "prices") {
-      setPercent1(arrMinMax.pricesArr?.[0] ?? 0);
-      setPercent2(arrMinMax.pricesArr?.[1] ?? 100);
+    if (name === "price") {
+      setPercent1(arrMinMax.priceArr?.[0] ?? 0);
+      setPercent2(arrMinMax.priceArr?.[1] ?? 100);
     }
 
-    if (name === "areas") {
-      setPercent1(arrMinMax.areasArr?.[0] ?? 0);
-      setPercent2(arrMinMax.areasArr?.[1] ?? 100);
+    if (name === "area") {
+      setPercent1(arrMinMax.areaArr?.[0] ?? 0);
+      setPercent2(arrMinMax.areaArr?.[1] ?? 100);
     }
   }, [arrMinMax, name]);
 
@@ -65,21 +65,21 @@ const Modal = ({
     // 10% => 1.5
     // 9% => 1.35*10 = 14/5 = 2 dư 4 => 3*5 = 15/10 = 1.5 triệu
     // 11% => 1.65*10 = 17/5 = 3 dư 2 => 4*5 = 20/10 = 2 triệu
-    return name === "prices"
+    return name === "price"
       ? (Math.ceil(Math.round(percent * 1.5) / 5) * 5) / 10
-      : name === "areas"
+      : name === "area"
       ? Math.ceil(Math.round(percent * 0.9) / 5) * 5
       : 0;
   };
   const convertto100 = (percent) => {
-    let target = name === "prices" ? 15 : name === "areas" ? 90 : 1;
+    let target = name === "price" ? 15 : name === "area" ? 90 : 1;
     return Math.floor((percent / target) * 100);
   };
 
   const handleActive = (code, value) => {
     setActivedEl(code);
     let arrMaxMin =
-      name === "prices" ? getNumbersPrice(value) : getNumbersArea(value);
+      name === "price" ? getNumbersPrice(value) : getNumbersArea(value);
     if (arrMaxMin.length === 1) {
       if (arrMaxMin[0] === 1) {
         setPercent1(0);
@@ -102,12 +102,12 @@ const Modal = ({
 
   const handleBeforeSubmit = (e) => {
     const gaps =
-      name === "prices"
+      name === "price"
         ? getCodesPrice(
             [convert100toTarget(percent1), convert100toTarget(percent2)],
             content
           )
-        : name === "areas"
+        : name === "area"
         ? getCodesAreas(
             [convert100toTarget(percent1), convert100toTarget(percent2)],
             content
@@ -119,7 +119,7 @@ const Modal = ({
         [`${name}Code`]: gaps?.map((item) => item.code),
         [name]: `Từ ${convert100toTarget(percent1)} - ${convert100toTarget(
           percent2
-        )} ${name === "prices" ? "triệu" : "m2"}`,
+        )} ${name === "price" ? "triệu" : "m2"}`,
       },
       {
         [`${name}Arr`]: [percent1, percent2],
@@ -150,7 +150,7 @@ const Modal = ({
             }}
           />
         </div>
-        {(name === "categories" || name === "provinces") && (
+        {(name === "category" || name === "province") && (
           <div className="p-4 flex flex-col">
             {content?.map((item) => {
               return (
@@ -179,13 +179,13 @@ const Modal = ({
             })}
           </div>
         )}
-        {(name === "prices" || name === "areas") && (
+        {(name === "price" || name === "area") && (
           <div className="p-12 py-20">
             <div className="flex flex-col items-center justify-center relative">
               <div className="z-30 absolute top-[-48px] font-bold text-xl text-orange-600">
                 {percent1 === 100 && percent2 === 100
                   ? `Trên ${convert100toTarget(percent1)} ${
-                      name === "prices" ? "triệu" : "m2"
+                      name === "price" ? "triệu" : "m2"
                     } +`
                   : `Từ ${
                       percent1 <= percent2
@@ -195,7 +195,7 @@ const Modal = ({
                       percent2 >= percent1
                         ? convert100toTarget(percent2)
                         : convert100toTarget(percent1)
-                    } ${name === "prices" ? "triệu" : "m2"}`}
+                    } ${name === "price" ? "triệu" : "m2"}`}
               </div>
               <div
                 onClick={handleClickTrack}
@@ -249,7 +249,7 @@ const Modal = ({
                     handleClickTrack(e, 100);
                   }}
                 >
-                  {`${name === "prices" ? "15 triệu +" : "90 m2"}`}
+                  {`${name === "price" ? "15 triệu +" : "90 m2"}`}
                 </span>
               </div>
             </div>
@@ -276,7 +276,7 @@ const Modal = ({
           </div>
         )}
 
-        {(name === "prices" || name === "areas") && (
+        {(name === "price" || name === "area") && (
           <button
             type="button"
             className="w-full bg-orange-400 py-2 font-medium rounded-bl-md rounded-br-md"
