@@ -3,6 +3,8 @@ import { SearchItem, Modal } from "../../components";
 import icons from "../../ultils/icons";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../store/actions";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import { path } from "../../ultils/constant";
 
 const {
   NavigateNextIcon,
@@ -19,14 +21,17 @@ function Search() {
   const [name, setName] = useState("");
   const [queries, setQueries] = useState({});
   const [arrMinMax, setArrMinMax] = useState({});
+  const [defaultText, setDefaultText] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { areas, prices, provinces, categories } = useSelector(
     (state) => state.app
   );
 
-  const handleShowModal = (content, name) => {
+  const handleShowModal = (content, name, defaultText) => {
     setContent(content);
     setName(name);
+    setDefaultText(defaultText);
     setIsShowModal(true);
   };
 
@@ -49,23 +54,27 @@ function Search() {
       queryCodesObj[item[0]] = item[1];
     });
     dispatch(actions.getPostsLimit(queryCodesObj));
+    navigate({
+      pathname: `/${path.SEARCH}`,
+      search: createSearchParams(queryCodesObj).toString(),
+    });
   };
   return (
     <>
       <div className="p-[10px] w-3/5 my-4 bg-[#febb02] rounded-lg flex-col lg:flex-row flex items-center justify-around gap-2">
         <span
-          onClick={() => handleShowModal(categories, "category")}
+          onClick={() => handleShowModal(categories, "category", "Tìm tất cả")}
           className="cursor-pointer flex-1"
         >
           <SearchItem
             iconBefore={<HouseIcon />}
             fontWeight
             text={queries.category}
-            defaultText="Phòng trọ, nhà trọ"
+            defaultText="Tìm tất cả"
           />
         </span>
         <span
-          onClick={() => handleShowModal(provinces, "province")}
+          onClick={() => handleShowModal(provinces, "province", "Toàn quốc")}
           className="cursor-pointer flex-1"
         >
           <SearchItem
@@ -76,7 +85,7 @@ function Search() {
           />
         </span>
         <span
-          onClick={() => handleShowModal(prices, "price")}
+          onClick={() => handleShowModal(prices, "price", "Chọn giá")}
           className="cursor-pointer flex-1"
         >
           <SearchItem
@@ -87,7 +96,7 @@ function Search() {
           />
         </span>
         <span
-          onClick={() => handleShowModal(areas, "area")}
+          onClick={() => handleShowModal(areas, "area", "Chọn diện tích")}
           className="cursor-pointer flex-1"
         >
           <SearchItem
@@ -111,6 +120,7 @@ function Search() {
           content={content}
           name={name}
           queries={queries}
+          defaultText={defaultText}
           setIsShowModal={setIsShowModal}
           handelSubmit={handleSubmit}
           arrMinMax={arrMinMax}

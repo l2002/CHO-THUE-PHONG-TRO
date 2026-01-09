@@ -15,6 +15,7 @@ const Modal = ({
   handelSubmit,
   queries,
   arrMinMax,
+  defaultText,
 }) => {
   const [percent1, setPercent1] = useState(0);
   const [percent2, setPercent2] = useState(100);
@@ -101,28 +102,25 @@ const Modal = ({
   };
 
   const handleBeforeSubmit = (e) => {
+    let min = percent1 <= percent2 ? percent1 : percent2;
+    let max = percent1 <= percent2 ? percent2 : percent1;
+    let arrMinMax = [convert100toTarget(min), convert100toTarget(max)];
     const gaps =
       name === "price"
-        ? getCodesPrice(
-            [convert100toTarget(percent1), convert100toTarget(percent2)],
-            content
-          )
+        ? getCodesPrice(arrMinMax, content)
         : name === "area"
-        ? getCodesAreas(
-            [convert100toTarget(percent1), convert100toTarget(percent2)],
-            content
-          )
+        ? getCodesAreas(arrMinMax, content)
         : [];
     handelSubmit(
       e,
       {
         [`${name}Code`]: gaps?.map((item) => item.code),
-        [name]: `Từ ${convert100toTarget(percent1)} - ${convert100toTarget(
-          percent2
-        )} ${name === "price" ? "triệu" : "m2"}`,
+        [name]: `Từ ${convert100toTarget(min)} - ${convert100toTarget(max)} ${
+          name === "price" ? "triệu" : "m2"
+        }`,
       },
       {
-        [`${name}Arr`]: [percent1, percent2],
+        [`${name}Arr`]: [min, max],
       }
     );
   };
@@ -139,7 +137,7 @@ const Modal = ({
           e.stopPropagation();
           setIsShowModal(true);
         }}
-        className="w-2/5 bg-white rounded-md"
+        className="w-2/5 h-[500px] bg-white rounded-md relative"
       >
         <div className="h-[45px] px-4 flex items-center border-b border-gray-300">
           <ArrowBackIcon
@@ -152,6 +150,22 @@ const Modal = ({
         </div>
         {(name === "category" || name === "province") && (
           <div className="p-4 flex flex-col">
+            <span className="py-2 flex gap-2 items-center  border-b border-gray-300">
+              <input
+                type="radio"
+                name={name}
+                id="default"
+                value={defaultText || ""}
+                checked={!queries[`${name}Code`] ? true : false}
+                onChange={(e) =>
+                  handelSubmit(e, {
+                    [name]: defaultText,
+                    [`${name}Code`]: null,
+                  })
+                }
+              />
+              <label htmlFor="default">{defaultText}</label>
+            </span>
             {content?.map((item) => {
               return (
                 <span
@@ -279,7 +293,7 @@ const Modal = ({
         {(name === "price" || name === "area") && (
           <button
             type="button"
-            className="w-full bg-orange-400 py-2 font-medium rounded-bl-md rounded-br-md"
+            className="w-full absolute bottom-0 bg-orange-400 py-2 font-medium rounded-bl-md rounded-br-md"
             onClick={handleBeforeSubmit}
           >
             ÁP DỤNG

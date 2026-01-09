@@ -1,5 +1,12 @@
 import { Routes, Route } from "react-router-dom";
-import { Home, Login, Rental, HomePage, DetailPost } from "./container/Public";
+import {
+  Home,
+  Login,
+  Rental,
+  HomePage,
+  DetailPost,
+  SearchDetail,
+} from "./container/Public";
 import { path } from "./ultils/constant";
 
 function App() {
@@ -13,6 +20,7 @@ function App() {
           <Route path={path.CAN_HO_MINI} element={<Rental />} />
           <Route path={path.CAN_HO_DICH_VU} element={<Rental />} />
           <Route path={path.CAN_HO_CHUNG_CU} element={<Rental />} />
+          <Route path={path.SEARCH} element={<SearchDetail />} />
           <Route
             path={path.DETAIL_POST__TITLE__POSTID}
             element={<DetailPost />}
