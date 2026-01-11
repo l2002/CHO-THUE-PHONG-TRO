@@ -1,9 +1,9 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { SearchItem, Modal } from "../../components";
 import icons from "../../ultils/icons";
 import { useSelector, useDispatch } from "react-redux";
 import * as actions from "../../store/actions";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import { path } from "../../ultils/constant";
 
 const {
@@ -22,11 +22,19 @@ function Search() {
   const [queries, setQueries] = useState({});
   const [arrMinMax, setArrMinMax] = useState({});
   const [defaultText, setDefaultText] = useState("");
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { areas, prices, provinces, categories } = useSelector(
     (state) => state.app
   );
+
+  useEffect(() => {
+    if (!location.pathname.includes(path.SEARCH)) {
+      setArrMinMax({});
+      setQueries({});
+    }
+  }, [location]);
 
   const handleShowModal = (content, name, defaultText) => {
     setContent(content);
@@ -46,18 +54,35 @@ function Search() {
   );
 
   const handleSearch = () => {
-    const queryCodes = Object.entries(queries).filter((item) =>
-      item[0].includes("Code")
-    );
+    const queryCodes = Object.entries(queries)
+      .filter((item) => item[0].includes("Code"))
+      .filter((item) => item[1]);
     let queryCodesObj = {};
     queryCodes.forEach((item) => {
       queryCodesObj[item[0]] = item[1];
     });
-    dispatch(actions.getPostsLimit(queryCodesObj));
-    navigate({
-      pathname: `/${path.SEARCH}`,
-      search: createSearchParams(queryCodesObj).toString(),
+    const queryText = Object.entries(queries).filter(
+      (item) => !item[0].includes("Code")
+    );
+    let queryTextObj = {};
+    queryText.forEach((item) => {
+      queryTextObj[item[0]] = item[1];
     });
+    console.log(queryTextObj);
+    let titleSearch = `${
+      queryTextObj.category ? queryTextObj.category : "Cho thuê tất cả"
+    }  ${queryTextObj.province ? `Tỉnh ${queryTextObj.province}` : ""}
+    ${queryTextObj.price ? `giá ${queryTextObj.price}` : ""} ${
+      queryTextObj.area ? `diện tích ${queryTextObj.area}` : ""
+    }`;
+
+    navigate(
+      {
+        pathname: `/${path.SEARCH}`,
+        search: createSearchParams(queryCodesObj).toString(),
+      },
+      { state: { titleSearch } }
+    );
   };
   return (
     <>
