@@ -105,16 +105,16 @@ const Modal = ({
     let min = percent1 <= percent2 ? percent1 : percent2;
     let max = percent1 <= percent2 ? percent2 : percent1;
     let arrMinMax = [convert100toTarget(min), convert100toTarget(max)];
-    const gaps =
-      name === "price"
-        ? getCodesPrice(arrMinMax, content)
-        : name === "area"
-        ? getCodesAreas(arrMinMax, content)
-        : [];
+    // const gaps =
+    //   name === "price"
+    //     ? getCodesPrice(arrMinMax, content)
+    //     : name === "area"
+    //     ? getCodesAreas(arrMinMax, content)
+    //     : [];
     handelSubmit(
       e,
       {
-        [`${name}Code`]: gaps?.map((item) => item.code),
+        [`${name}Number`]: arrMinMax,
         [name]: `Từ ${convert100toTarget(min)} - ${convert100toTarget(max)} ${
           name === "price" ? "triệu" : "m2"
         }`,

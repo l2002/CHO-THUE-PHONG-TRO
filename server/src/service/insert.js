@@ -8,7 +8,7 @@ import nhanguyencan from "../../data/nhanguyencan.json";
 import generateCode from "../../ultis/generateCode";
 import parseVNDate from "../../ultis/parseVNDate";
 import { dataPrice, dataArea } from "../../ultis/data";
-import { getNumberFromString } from "../../ultis/common";
+import { getNumberFromString, getNumberFromStringV2 } from "../../ultis/common";
 
 require("dotenv").config();
 
@@ -85,8 +85,8 @@ export const insertService = () =>
               (price) => price.max > currentPrice && price.min <= currentPrice
             )?.code,
             provinceCode,
-            priceNumber: +currentPrice,
-            areaNumber: +currentArea,
+            priceNumber: getNumberFromStringV2(item?.header?.price),
+            areaNumber: getNumberFromStringV2(item?.header?.area),
           });
           await db.Attribute.create({
             id: attributesId,
