@@ -85,6 +85,8 @@ export const insertService = () =>
               (price) => price.max > currentPrice && price.min <= currentPrice
             )?.code,
             provinceCode,
+            priceNumber: +currentPrice,
+            areaNumber: +currentArea,
           });
           await db.Attribute.create({
             id: attributesId,
