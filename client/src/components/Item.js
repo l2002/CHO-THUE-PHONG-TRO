@@ -35,7 +35,7 @@ const Item = ({
                   key={index}
                   src={i}
                   alt="preview"
-                  className="w-[140px] h-[120px] object-cover"
+                  className="w-[47%] h-[120px] object-cover"
                 />
               );
             })}
