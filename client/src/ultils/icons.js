@@ -13,6 +13,9 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const icons = {
   LoginIcon,
@@ -30,6 +33,9 @@ const icons = {
   FavoriteIcon,
   ArrowForwardIcon,
   ArrowBackIcon,
+  AddCircleIcon,
+  EditNoteIcon,
+  AccountCircleIcon,
 };
 
 export default icons;

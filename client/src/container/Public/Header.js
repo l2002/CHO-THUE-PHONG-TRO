@@ -1,16 +1,14 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import logo from "../../assets/logo.png";
-import { Button } from "../../components";
+import { Button, Item } from "../../components";
 import icons from "../../ultils/icons";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { path } from "../../ultils/constant";
 import { useSelector, useDispatch } from "react-redux";
+import menuMange from "../../ultils/menuManage";
 import * as actions from "../../store/actions";
 
-const { LoginIcon } = icons;
-const { PersonAddAltIcon } = icons;
-const { PostAddIcon } = icons;
-const { LogoutIcon } = icons;
+const { LoginIcon, PersonAddAltIcon, PostAddIcon, LogoutIcon } = icons;
 
 function Header() {
   const navigate = useNavigate();
@@ -19,6 +17,7 @@ function Header() {
   const headerRef = useRef();
   const { isLoggedIn } = useSelector((state) => state.auth);
   const { currentData } = useSelector((state) => state.user);
+  const [isShowMenu, setIsShowMenu] = useState(false);
 
   const goLogin = useCallback((flag) => {
     navigate(`/${path.LOGIN}`, { state: { flag } });
@@ -64,15 +63,43 @@ function Header() {
             </div>
           )}
           {isLoggedIn && (
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 relative">
               <small>{`Xin chào ${currentData.name}!`}</small>
               <Button
-                text={"Đăng xuất"}
+                text={"Quản lý tài khoản"}
                 textColor="text-white"
-                bgColor="bg-red-700"
-                IcAfter={LogoutIcon}
-                onClick={() => dispatch(actions.logout())}
+                bgColor="bg-blue-700"
+                px="px-5"
+                onClick={() => {
+                  setIsShowMenu((prev) => !prev);
+                }}
               />
+              {isShowMenu && (
+                <div className="absolute min-w-200 top-full right-0 bg-white shadow-md rounded-md p-4 flex flex-col">
+                  {menuMange.map((item) => {
+                    return (
+                      <Link
+                        className="cursor-pointer hover:text-orange-500 text-blue-500 border-b border-gray-200 p-2 flex items-center gap-1"
+                        key={item.id}
+                        to={item?.path}
+                      >
+                        {item?.icon}
+                        {item.text}
+                      </Link>
+                    );
+                  })}
+                  <span
+                    className="cursor-pointer hover:text-orange-500 text-blue-500 p-2 flex items-center gap-1"
+                    onClick={() => {
+                      setIsShowMenu(false);
+                      dispatch(actions.logout());
+                    }}
+                  >
+                    <LogoutIcon />
+                    Đăng xuất
+                  </span>
+                </div>
+              )}
             </div>
           )}
           <Button

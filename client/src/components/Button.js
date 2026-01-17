@@ -1,10 +1,18 @@
 import { memo } from "react";
 
-const Button = ({ text, textColor, bgColor, IcAfter, onClick, fullWidth }) => {
+const Button = ({
+  text,
+  textColor,
+  bgColor,
+  IcAfter,
+  onClick,
+  fullWidth,
+  px,
+}) => {
   return (
     <button
       type="button"
-      className={`py-2 px-4 ${textColor} ${bgColor} ${
+      className={`py-2 ${px} ${textColor} ${bgColor} ${
         fullWidth && "w-full"
       } outline-none rounded-md flex items-center justify-center gap-1`}
       onClick={onClick}

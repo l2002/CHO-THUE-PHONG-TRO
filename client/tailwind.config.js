@@ -6,6 +6,11 @@ module.exports = {
       width: {
         1100: "1100px",
       },
+      maxWidth: {
+        600: "600px",
+        1100: "1100px",
+      },
+      minWidth: { 300: "300px", 200: "200px" },
       backgroundColor: {
         primary: "#F5F5F5",
         secondary1: "#1266dd",
