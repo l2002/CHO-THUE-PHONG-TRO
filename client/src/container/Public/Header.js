@@ -18,6 +18,7 @@ function Header() {
   const [searchParams] = useSearchParams();
   const headerRef = useRef();
   const { isLoggedIn } = useSelector((state) => state.auth);
+  const { currentData } = useSelector((state) => state.user);
 
   const goLogin = useCallback((flag) => {
     navigate(`/${path.LOGIN}`, { state: { flag } });
@@ -26,6 +27,7 @@ function Header() {
   useEffect(() => {
     headerRef.current.scrollIntoView({ behavior: "smooth" });
   }, [searchParams.get("page")]);
+
   return (
     <div ref={headerRef} className="w-3/5">
       <div className="w-full flex items-center justify-between bg-[#f5f5f5]">
@@ -63,7 +65,7 @@ function Header() {
           )}
           {isLoggedIn && (
             <div className="flex items-center gap-1">
-              <small>Ten !</small>
+              <small>{`Xin chào ${currentData.name}!`}</small>
               <Button
                 text={"Đăng xuất"}
                 textColor="text-white"
