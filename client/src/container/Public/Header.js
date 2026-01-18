@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import logo from "../../assets/logo.png";
-import { Button, Item } from "../../components";
+import { Button, User } from "../../components";
 import icons from "../../ultils/icons";
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import { path } from "../../ultils/constant";
@@ -16,7 +16,6 @@ function Header() {
   const [searchParams] = useSearchParams();
   const headerRef = useRef();
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const { currentData } = useSelector((state) => state.user);
   const [isShowMenu, setIsShowMenu] = useState(false);
 
   const goLogin = useCallback((flag) => {
@@ -63,8 +62,8 @@ function Header() {
             </div>
           )}
           {isLoggedIn && (
-            <div className="flex items-center gap-1 relative">
-              <small>{`Xin chào ${currentData.name}!`}</small>
+            <div className="flex items-center gap-3 relative">
+              <User />
               <Button
                 text={"Quản lý tài khoản"}
                 textColor="text-white"
