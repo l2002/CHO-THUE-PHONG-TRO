@@ -9,8 +9,20 @@ import {
 } from "./container/Public";
 import { path } from "./ultils/constant";
 import { CreatePost, System } from "./container/System";
+import * as actions from "./store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function App() {
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    setTimeout(() => {
+      isLoggedIn && dispatch(actions.getCurrent());
+    }, 1000);
+  }, [isLoggedIn]);
+
   return (
     <div className="bg-primary">
       <Routes>
