@@ -18,7 +18,7 @@ const User = () => {
         <span>
           Mã tài khoản:{" "}
           <span className="font-medium">
-            {currentData?.id && `${currentData?.id.slice(0, 10)}...`}
+            {`${currentData?.id?.slice(0, 10)}...`}
           </span>
         </span>
       </div>

@@ -8,6 +8,7 @@ import {
   SearchDetail,
 } from "./container/Public";
 import { path } from "./ultils/constant";
+import { CreatePost, System } from "./container/System";
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
             path={path.DETAIL_POST__TITLE__POSTID}
             element={<DetailPost />}
           />
+        </Route>
+        <Route path={path.SYSTEM} element={<System />}>
+          <Route path={path.CREATE_POST} element={<CreatePost />} />
         </Route>
       </Routes>
     </div>

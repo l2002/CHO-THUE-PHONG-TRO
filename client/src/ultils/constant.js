@@ -8,6 +8,8 @@ export const path = {
   CAN_HO_CHUNG_CU: "can-ho-chung-cu",
   DETAIL_POST__TITLE__POSTID: "chi-tiet/:title/:postId",
   SEARCH: "tim-kiem",
+  SYSTEM: "/he-thong/*",
+  CREATE_POST: "tao-moi-bai-dang",
 };
 
 export const text = {

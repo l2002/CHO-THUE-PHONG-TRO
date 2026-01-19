@@ -9,7 +9,7 @@ const notActive =
 const active =
   "hover:bg-secondary2 py-2 px-4 h-full flex justify-center bg-secondary2";
 
-function Nagivation() {
+function Nagivation({ isAdmin }) {
   // const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.app);
@@ -18,7 +18,9 @@ function Nagivation() {
   }, []);
 
   return (
-    <div className="w-full flex justify-center items-center bg-secondary1 text-white">
+    <div
+      className={`w-full flex ${isAdmin ? "justify-start" : "justify-center"} items-center h-[40px] bg-secondary1 text-white`}
+    >
       <div className="w-3/5 flex h-full items-center text-sm font-medium">
         <NavLink
           to={"/"}
