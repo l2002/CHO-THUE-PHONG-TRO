@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-const SelectAddress = ({ label, options, value, setValue, reset }) => {
+const Select = ({ label, options, value, setValue, reset }) => {
   return (
     <div className="flex flex-col gap-2 flex-1">
       <label className="font-medium" htmlFor="select-address">
@@ -15,8 +15,8 @@ const SelectAddress = ({ label, options, value, setValue, reset }) => {
         <option value="">{`--Chọn ${label}--`}</option>
         {options?.map((item) => {
           return (
-            <option key={item?.code} value={item?.code}>
-              {item?.name}
+            <option key={item?.code || item?.id} value={item?.code || item?.id}>
+              {item?.name || item?.value}
             </option>
           );
         })}
@@ -25,4 +25,4 @@ const SelectAddress = ({ label, options, value, setValue, reset }) => {
   );
 };
 
-export default memo(SelectAddress);
+export default memo(Select);
