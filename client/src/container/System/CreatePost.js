@@ -1,9 +1,25 @@
+import { useState } from "react";
 import { Address, Overview } from "../../components";
 import icons from "../../ultils/icons";
 
 const { CameraAltIcon } = icons;
 
 const CreatePost = () => {
+  const [payload, setPayload] = useState({
+    categoryCode: "",
+    title: "",
+    priceNumber: 0,
+    areaNumber: 0,
+    image: "",
+    address: "",
+    priceCode: "",
+    areaCode: "",
+    description: "",
+    target: "",
+    province: "",
+  });
+
+  console.log(payload);
   return (
     <div className="px-6">
       <h1 className="font-medium text-3xl py-4 border-b border-gray-200">
@@ -11,8 +27,8 @@ const CreatePost = () => {
       </h1>
       <div className="flex gap-4">
         <div className="py-4 flex flex-col flex-auto gap-8">
-          <Address />
-          <Overview />
+          <Address payload={payload} setPayload={setPayload} />
+          <Overview payload={payload} setPayload={setPayload} />
           <div className="w-full">
             <h2 className="font-semibold text-xl py-4">Hình ảnh</h2>
             <small>Cập nhật hình ảnh rõ ràng sẽ cho thuê nhanh hơn</small>
