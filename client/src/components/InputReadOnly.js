@@ -7,7 +7,7 @@ const InputReadOnly = ({ label, value }) => {
         {label}
       </label>
       <input
-        value={value}
+        value={value || ""}
         type="text"
         id="exactly-address"
         readOnly

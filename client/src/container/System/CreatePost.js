@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Address, Overview } from "../../components";
 import icons from "../../ultils/icons";
+import { apiUploadImages } from "../../services";
 
 const { CameraAltIcon } = icons;
 
@@ -10,7 +11,7 @@ const CreatePost = () => {
     title: "",
     priceNumber: 0,
     areaNumber: 0,
-    image: "",
+    images: "",
     address: "",
     priceCode: "",
     areaCode: "",
@@ -19,7 +20,30 @@ const CreatePost = () => {
     province: "",
   });
 
+  const [imagePreview, setImagePreview] = useState([]);
   console.log(payload);
+
+  const handleFiles = async (e) => {
+    e.stopPropagation();
+    let images = [];
+    const files = e.target.files;
+    const formData = new FormData();
+
+    for (let i of files) {
+      formData.append("file", i);
+      formData.append(
+        "upload_preset",
+        process.env.REACT_APP_UPLOAD_ASSETS_NAME,
+      );
+
+      const response = await apiUploadImages(formData);
+      if (response.status === 200)
+        images = [...images, response.data?.secure_url];
+      setImagePreview(images);
+      setPayload((prev) => ({ ...prev, images: JSON.stringify(images) }));
+    }
+  };
+
   return (
     <div className="px-6">
       <h1 className="font-medium text-3xl py-4 border-b border-gray-200">
@@ -40,7 +64,28 @@ const CreatePost = () => {
                 <CameraAltIcon className="text-blue-400" fontSize="large" />
                 Thêm ảnh
               </label>
-              <input hidden type="file" id="file" />
+              <input
+                onChange={handleFiles}
+                hidden
+                type="file"
+                id="file"
+                multiple
+              />
+              <div className="w-full">
+                <h3 className="font-medium">Preview</h3>
+                <div className="flex gap-4 items-center">
+                  {imagePreview?.map((item) => {
+                    return (
+                      <img
+                        key={item}
+                        src={item}
+                        alt="preview"
+                        className="w-1/3 h-1/3 object-cover rounded-md"
+                      />
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </div>
