@@ -29,7 +29,7 @@ const Address = ({ payload, setPayload }) => {
   }, []);
 
   useEffect(() => {
-    setDistrict(null);
+    setDistrict("");
     const fetchPublicDistrict = async () => {
       const response = await apiGetPublicDistrict(province);
       if (response.status === 200) {

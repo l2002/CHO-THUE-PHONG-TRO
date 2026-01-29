@@ -17,6 +17,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const icons = {
   LoginIcon,
@@ -38,6 +39,7 @@ const icons = {
   EditNoteIcon,
   AccountCircleIcon,
   CameraAltIcon,
+  DeleteIcon,
 };
 
 export default icons;

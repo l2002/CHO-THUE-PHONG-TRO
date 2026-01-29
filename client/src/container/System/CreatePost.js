@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Address, Overview } from "../../components";
+import { Address, Button, Loading, Overview } from "../../components";
 import icons from "../../ultils/icons";
 import { apiUploadImages } from "../../services";
+import { useSelector } from "react-redux";
+import { getCodesAreas, getCodesPrice } from "../../ultils/Common/getCodes";
 
-const { CameraAltIcon } = icons;
+const { CameraAltIcon, DeleteIcon } = icons;
 
 const CreatePost = () => {
   const [payload, setPayload] = useState({
@@ -21,10 +23,12 @@ const CreatePost = () => {
   });
 
   const [imagePreview, setImagePreview] = useState([]);
-  console.log(payload);
+  const [isLoading, setIsLoading] = useState(false);
+  const { prices, areas } = useSelector((state) => state.app);
 
   const handleFiles = async (e) => {
     e.stopPropagation();
+    setIsLoading(true);
     let images = [];
     const files = e.target.files;
     const formData = new FormData();
@@ -35,13 +39,40 @@ const CreatePost = () => {
         "upload_preset",
         process.env.REACT_APP_UPLOAD_ASSETS_NAME,
       );
-
-      const response = await apiUploadImages(formData);
+      let response = await apiUploadImages(formData);
       if (response.status === 200)
         images = [...images, response.data?.secure_url];
-      setImagePreview(images);
-      setPayload((prev) => ({ ...prev, images: JSON.stringify(images) }));
     }
+
+    setIsLoading(false);
+    setImagePreview((prev) => [...prev, ...images]);
+    setPayload((prev) => ({
+      ...prev,
+      images: [...prev.images, ...images],
+    }));
+  };
+
+  const handelDelete = (image) => {
+    setImagePreview((prev) => prev?.filter((item) => item !== image));
+    setPayload((prev) => ({
+      ...prev,
+      images: prev.images?.filter((item) => item !== image),
+    }));
+  };
+
+  const handleSubmit = () => {
+    let priceCodeArr = getCodesPrice(+payload.priceNumber, prices, 1, 15);
+    let priceCode = priceCodeArr[0]?.code;
+
+    let areaCodeArr = getCodesAreas(+payload.areaNumber, areas, 20, 90);
+    let areaCode = areaCodeArr[0]?.code;
+
+    let finalPayload = {
+      ...payload,
+      priceCode,
+      areaCode,
+    };
+    console.log(finalPayload);
   };
 
   return (
@@ -53,16 +84,22 @@ const CreatePost = () => {
         <div className="py-4 flex flex-col flex-auto gap-8">
           <Address payload={payload} setPayload={setPayload} />
           <Overview payload={payload} setPayload={setPayload} />
-          <div className="w-full">
+          <div className="w-full mb-6">
             <h2 className="font-semibold text-xl py-4">Hình ảnh</h2>
             <small>Cập nhật hình ảnh rõ ràng sẽ cho thuê nhanh hơn</small>
             <div className="w-full">
               <label
                 htmlFor="file"
-                className="w-full flex flex-col gap-4 items-center justify-center border-2 h-[200px] my-4 border-dashed border-gray-400 rounded-md"
+                className="w-full gap-4 flex flex-col items-center justify-center border-2 h-[200px] my-4 border-dashed border-gray-400 rounded-md"
               >
-                <CameraAltIcon className="text-blue-400" fontSize="large" />
-                Thêm ảnh
+                {isLoading ? (
+                  <Loading />
+                ) : (
+                  <div className="flex flex-col items-center">
+                    <CameraAltIcon className="text-blue-400" fontSize="large" />
+                    Thêm ảnh
+                  </div>
+                )}
               </label>
               <input
                 onChange={handleFiles}
@@ -72,22 +109,36 @@ const CreatePost = () => {
                 multiple
               />
               <div className="w-full">
-                <h3 className="font-medium">Preview</h3>
+                <h3 className="font-medium">Ảnh đã chọn</h3>
                 <div className="flex gap-4 items-center">
                   {imagePreview?.map((item) => {
                     return (
-                      <img
-                        key={item}
-                        src={item}
-                        alt="preview"
-                        className="w-1/3 h-1/3 object-cover rounded-md"
-                      />
+                      <div key={item} className="relative">
+                        <img
+                          src={item}
+                          alt="preview"
+                          className="w-52 h-80 object-cover rounded-md"
+                        />
+                        <span
+                          onClick={() => handelDelete(item)}
+                          title="Xóa"
+                          className="absolute top-0 right-0 p-2 bg-gray-300 hover:bg-gray-400 rounded-full cursor-pointer"
+                        >
+                          <DeleteIcon />
+                        </span>
+                      </div>
                     );
                   })}
                 </div>
               </div>
             </div>
           </div>
+          <Button
+            onClick={handleSubmit}
+            text="Tạo mới"
+            bgColor="bg-green-600"
+            textColor="text-white"
+          />
         </div>
         <div className="w-[30%] flex-none">Map</div>
       </div>

@@ -2,19 +2,10 @@ import Header from "./Header";
 import { Outlet } from "react-router-dom";
 import { Search, Nagivation } from "./index";
 import { Contact, Intro } from "../../components";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import * as actions from "../../store/actions";
+import { useSelector } from "react-redux";
 
 const Home = () => {
-  const dispatch = useDispatch();
   const { isLoggedIn } = useSelector((state) => state.auth);
-
-  useEffect(() => {
-    dispatch(actions.getPrices());
-    dispatch(actions.getAreas());
-    dispatch(actions.getProvinces());
-  }, []);
 
   return (
     <div className="w-full flex flex-col items-center h-full gap-4">
