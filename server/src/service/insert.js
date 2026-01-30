@@ -51,7 +51,7 @@ export const insertService = () =>
             });
 
           let provinceCode = generateCode(
-            item?.attributes?.address?.split(",")?.slice(-1)[0]
+            item?.attributes?.address?.split(",")?.slice(-1)[0],
           ).trim();
           provinceCodes?.every((item) => item?.code !== provinceCode) &&
             provinceCodes.push({
@@ -79,10 +79,10 @@ export const insertService = () =>
             overviewId,
             imagesId,
             areaCode: dataArea.find(
-              (area) => area.max > currentArea && area.min <= currentArea
+              (area) => area.max > currentArea && area.min <= currentArea,
             )?.code,
             priceCode: dataPrice.find(
-              (price) => price.max > currentPrice && price.min <= currentPrice
+              (price) => price.max > currentPrice && price.min <= currentPrice,
             )?.code,
             provinceCode,
             priceNumber: getNumberFromStringV2(item?.header?.price),
@@ -116,6 +116,9 @@ export const insertService = () =>
           await db.Overview.create({
             id: overviewId,
             code: item?.attributes?.hashtag,
+            type: cate.code,
+            area: "",
+            target: "",
             province: item?.attributes?.province,
             created: parseVNDate(item?.attributes?.datePosted),
             expired: parseVNDate(item?.attributes?.expiryDate) || null,

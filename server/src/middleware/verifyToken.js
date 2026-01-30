@@ -2,7 +2,6 @@ import jwt from "jsonwebtoken";
 
 const verifyToken = (req, res, next) => {
   let accessToken = req.headers.authorization?.split(" ")[1];
-  console.log(accessToken);
   if (!accessToken)
     return res.status(401).json({
       err: 1,
