@@ -1,5 +1,5 @@
 import db from "../models";
-const { Op, where } = require("sequelize");
+const { Op, where, or } = require("sequelize");
 import { v4 as generateId } from "uuid";
 import moment from "moment";
 import generateCode from "../../ultis/generateCode";
@@ -56,6 +56,7 @@ export const getPostsLimitService = (
         nest: true,
         offset: offset * +process.env.LIMIT,
         limit: +process.env.LIMIT, // chuyen string sang integer
+        order: [["createdAt", "DESC"]],
         include: [
           {
             model: db.Image,
@@ -93,7 +94,7 @@ export const getNewPostService = () =>
         nest: true,
         offset: 0,
         order: [["createdAt", "DESC"]],
-        limit: +process.env.LIMIT, // chuyen string sang integer
+        limit: +process.env.LIMIT, // +: chuyen string sang integer
         include: [
           {
             model: db.Image,
@@ -124,8 +125,8 @@ export const createNewPostSerVice = (body, userId) =>
       const attributesId = generateId();
       const imagesId = generateId();
       const overviewId = generateId();
-      const labelCode = generateId(body.label);
-      const hastag = `#${Math.floor(Math.random() * Math.pow(10, 6))}`;
+      const labelCode = generateCode(body.label);
+      const hashtag = `#${Math.floor(Math.random() * Math.pow(10, 6))}`;
       const currentDate = new Date();
 
       await db.Post.create({
@@ -135,23 +136,25 @@ export const createNewPostSerVice = (body, userId) =>
         address: body.address || null,
         attributesId,
         categoryCode: body.categoryCode || null,
-        description: body.description || null,
+        description: JSON.stringify(body.description) || null,
         userId,
         overviewId,
         imagesId,
         areaCode: body.areaCode || null,
         priceCode: body.priceCode || null,
-        provinceCode: body.provinceCode || null,
+        provinceCode: body?.province?.includes("Thành phố")
+          ? generateCode(body?.province?.replace("Thành phố", ""))
+          : generateCode(body?.province?.replace("Tỉnh", "")) || null,
         priceNumber: body.priceNumber,
         areaNumber: body.areaNumber,
       });
       await db.Attribute.create({
         id: attributesId,
         price:
-          +priceNumber < 1
-            ? `${priceNumber * 1000000} đồng/tháng`
-            : `${priceNumber} triệu/tháng`,
-        acreage: `${areaNumber} m2`,
+          +body.priceNumber < 1
+            ? `${body.priceNumber * 1000000} đồng/tháng`
+            : `${body.priceNumber} triệu/tháng`,
+        acreage: `${body.areaNumber} m2`,
         published: moment(new Date()).format("DD/MM/YYYY"),
         hashtag,
       });
@@ -161,7 +164,7 @@ export const createNewPostSerVice = (body, userId) =>
       });
       await db.Overview.create({
         id: overviewId,
-        code: hastag,
+        code: hashtag,
         area: body.label,
         type: body?.category,
         target: body.target,
@@ -179,13 +182,13 @@ export const createNewPostSerVice = (body, userId) =>
             },
           ],
         },
-        default: {
-          code: body?.province?.include("Thành phố")
-            ? generateCode(body?.province?.replace("Thành phố", ""))
-            : generateCode(body?.province?.replace("Tỉnh", "")),
-          value: body?.province?.include("Thành phố")
-            ? body?.province?.replace("Thành phố")
-            : body?.province?.replace("Tỉnh"),
+        defaults: {
+          code: body?.province?.includes("Thành phố")
+            ? generateCode(body?.province?.replace("Thành phố ", ""))
+            : generateCode(body?.province?.replace("Tỉnh ", "")),
+          value: body?.province?.includes("Thành phố ")
+            ? body?.province?.replace("Thành phố ", "")
+            : body?.province?.replace("Tỉnh ", ""),
         },
       });
       await db.Label.findOrCreate({

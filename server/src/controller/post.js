@@ -51,7 +51,7 @@ export const createNewPost = async (req, res) => {
         err: 1,
         msg: "Missing input",
       });
-    const response = await postsService.createNewPostService(req.body, id);
+    const response = await postsService.createNewPostSerVice(req.body, id);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({

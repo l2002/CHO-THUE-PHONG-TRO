@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Address, Button, Loading, Overview } from "../../components";
 import icons from "../../ultils/icons";
-import { apiUploadImages } from "../../services";
+import { apiCreatePost, apiUploadImages } from "../../services";
 import { useSelector } from "react-redux";
 import { getCodesAreas, getCodesPrice } from "../../ultils/Common/getCodes";
+import Swal from "sweetalert2";
 
 const { CameraAltIcon, DeleteIcon } = icons;
 
@@ -25,9 +26,7 @@ const CreatePost = () => {
 
   const [imagePreview, setImagePreview] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { prices, areas, categories, provinces } = useSelector(
-    (state) => state.app,
-  );
+  const { prices, areas, categories } = useSelector((state) => state.app);
   const { currentData } = useSelector((state) => state.user);
 
   const handleFiles = async (e) => {
@@ -64,7 +63,7 @@ const CreatePost = () => {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let priceCodeArr = getCodesPrice(
       +payload.priceNumber / Math.pow(10, 6),
       prices,
@@ -86,7 +85,27 @@ const CreatePost = () => {
       label: `${categories?.find((item) => item.code === payload?.categoryCode)?.value} ${payload?.address?.split(",")[0]}`,
     };
 
-    console.log(finalPayload);
+    const response = await apiCreatePost(finalPayload);
+    if (response?.data.err === 0) {
+      Swal.fire("Thành công", "Đã thêm bài đăng mới", "success").then(() => {
+        setPayload({
+          categoryCode: "",
+          title: "",
+          priceNumber: 0,
+          areaNumber: 0,
+          images: "",
+          address: "",
+          priceCode: "",
+          areaCode: "",
+          description: "",
+          target: "",
+          province: "",
+          userId: "",
+        });
+      });
+    } else {
+      Swal.fire("Oops!", "Có lỗi gì đó", "error");
+    }
   };
 
   return (

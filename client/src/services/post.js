@@ -54,3 +54,17 @@ export const apiUploadImages = (images) =>
       reject(error);
     }
   });
+
+export const apiCreatePost = (payload) =>
+  new Promise(async (resole, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: "post",
+        url: `/api/v1/post/create-new`,
+        data: payload,
+      });
+      resole(response);
+    } catch (error) {
+      reject(error);
+    }
+  });
