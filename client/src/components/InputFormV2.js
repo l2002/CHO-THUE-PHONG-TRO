@@ -1,6 +1,15 @@
 import React from "react";
 
-const InputFormV2 = ({ label, unit, value, setValue, name, small }) => {
+const InputFormV2 = ({
+  label,
+  unit,
+  value,
+  setValue,
+  name,
+  small,
+  invalidFields,
+  setInvalidFields,
+}) => {
   return (
     <div>
       <label htmlFor="title">{label}</label>
@@ -10,6 +19,7 @@ const InputFormV2 = ({ label, unit, value, setValue, name, small }) => {
           onChange={(e) =>
             setValue((prev) => ({ ...prev, [name]: e.target.value }))
           }
+          onFocus={() => setInvalidFields([])}
           type="text"
           id="title"
           className={`${unit ? "rounded-tl-md rounded-bl-md" : "rounded-md"} outline-none border border-gray-300 flex-auto p-2`}
@@ -20,7 +30,11 @@ const InputFormV2 = ({ label, unit, value, setValue, name, small }) => {
           </span>
         )}
       </div>
-      {small && <small className="opacity-70">{small}</small>}
+      {small && <small className="opacity-70 whitespace-nowrap">{small}</small>}
+      <small className="text-red-500 block w-full">
+        {invalidFields?.some((item) => item.name === name) &&
+          invalidFields?.find((item) => item.name === name)?.message}
+      </small>
     </div>
   );
 };

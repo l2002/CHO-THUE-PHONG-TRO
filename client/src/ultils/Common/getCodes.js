@@ -45,14 +45,14 @@ export const getCodeAreas = (totals, min, max) => {
 
 export const getCodesPrice = (entry, prices, min, max) => {
   const pricesWithMaxMin = getCodePrices(prices, min, max);
-  console.table(
-    pricesWithMaxMin.map((i) => ({
-      code: i.code,
-      min: i.min,
-      max: i.max,
-      valid: i.min < i.max,
-    })),
-  );
+  // console.table(
+  //   pricesWithMaxMin.map((i) => ({
+  //     code: i.code,
+  //     min: i.min,
+  //     max: i.max,
+  //     valid: i.min < i.max,
+  //   })),
+  // );
   return pricesWithMaxMin.filter(
     (item) => item.min <= entry && entry < item.max,
   );
@@ -60,14 +60,14 @@ export const getCodesPrice = (entry, prices, min, max) => {
 
 export const getCodesAreas = (entry, areas, min, max) => {
   const areasWithMaxMin = getCodeAreas(areas, min, max);
-  console.table(
-    areasWithMaxMin.map((i) => ({
-      code: i.code,
-      min: i.min,
-      max: i.max,
-      valid: i.min < i.max,
-    })),
-  );
+  // console.table(
+  //   areasWithMaxMin.map((i) => ({
+  //     code: i.code,
+  //     min: i.min,
+  //     max: i.max,
+  //     valid: i.min < i.max,
+  //   })),
+  // );
   return areasWithMaxMin.filter(
     (item) => item.min <= entry && entry < item.max,
   );
