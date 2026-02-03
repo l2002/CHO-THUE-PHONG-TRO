@@ -6,7 +6,6 @@ import canhodichvu from "../../data/canhodichvu.json";
 import canhomini from "../../data/canhomini.json";
 import nhanguyencan from "../../data/nhanguyencan.json";
 import generateCode from "../../ultis/generateCode";
-import parseVNDate from "../../ultis/parseVNDate";
 import { dataPrice, dataArea } from "../../ultis/data";
 import { getNumberFromString, getNumberFromStringV2 } from "../../ultis/common";
 
@@ -120,8 +119,8 @@ export const insertService = () =>
             area: "",
             target: "",
             province: item?.attributes?.province,
-            created: parseVNDate(item?.attributes?.datePosted),
-            expired: parseVNDate(item?.attributes?.expiryDate) || null,
+            created: item?.attributes?.datePosted,
+            expired: item?.attributes?.expiryDate,
           });
           await db.User.create({
             id: userId,

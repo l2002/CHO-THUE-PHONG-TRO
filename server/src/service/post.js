@@ -3,6 +3,7 @@ const { Op, where, or } = require("sequelize");
 import { v4 as generateId } from "uuid";
 import moment from "moment";
 import generateCode from "../../ultis/generateCode";
+import generateDate from "../../ultis/generateDate";
 
 export const getPostsService = () =>
   new Promise(async (resolve, reject) => {
@@ -127,7 +128,7 @@ export const createNewPostSerVice = (body, userId) =>
       const overviewId = generateId();
       const labelCode = generateCode(body.label);
       const hashtag = `#${Math.floor(Math.random() * Math.pow(10, 6))}`;
-      const currentDate = new Date();
+      const currentDate = generateDate();
 
       await db.Post.create({
         id: generateId(),
@@ -168,8 +169,8 @@ export const createNewPostSerVice = (body, userId) =>
         area: body.label,
         type: body?.category,
         target: body.target,
-        created: currentDate,
-        expired: currentDate.setDate(currentDate.getDate() + 10),
+        created: currentDate.today,
+        expired: currentDate.expireDay,
       });
       await db.Province.findOrCreate({
         where: {
