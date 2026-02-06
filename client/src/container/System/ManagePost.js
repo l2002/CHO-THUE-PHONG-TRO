@@ -11,13 +11,11 @@ const ManagePost = () => {
     dispatch(actions.getPostsLimitAdmin());
   }, []);
 
-  const checkStatus = (datetime) => {
-    let todayInSeconds = new Date().getTime();
-    let expireDayInSeconds = datetime.getTime();
-    return todayInSeconds >= expireDayInSeconds
-      ? "Đang hoạt động"
-      : "Đã hết hạn";
-  };
+  const checkStatus = (dateString) =>
+    moment(dateString, process.env.REACT_APP_FORMAT_DATE).isSameOrAfter(
+      new Date().toDateString(),
+    );
+
   return (
     <div className="flex flex-col gap-6">
       <div className="py-4 border-b border-gray-200 flex items-center justify-between">
@@ -30,7 +28,7 @@ const ManagePost = () => {
           <option value="">Lọc theo trạng thái</option>
         </select>
       </div>
-      <table class="w-full table-auto">
+      <table className="w-full table-auto">
         <thead>
           <tr>
             <th className="border p-2">Mã tin</th>
@@ -72,9 +70,9 @@ const ManagePost = () => {
                     {item?.overviews?.expired}
                   </td>
                   <td className="border p-2 text-center">
-                    {checkStatus(
-                      new Date(item?.overviews?.expired?.split(" ")[3]),
-                    )}
+                    {checkStatus(item?.overviews?.expired?.split(" ")[3])
+                      ? "Đang hoạt động"
+                      : "Đã hết hạn"}
                   </td>
                 </tr>
               );
