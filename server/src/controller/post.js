@@ -83,3 +83,22 @@ export const getPostLimitAdmin = async (req, res) => {
     });
   }
 };
+
+export const updatePost = async (req, res) => {
+  const { postId, attributesId, imagesId, overviewId, ...payload } = req.body;
+  const { id } = req.user;
+  try {
+    if (!postId || !id || !attributesId || !imagesId || !overviewId)
+      return res.status(400).json({
+        err: 1,
+        msg: "Missing inputs",
+      });
+    const response = await postsService.updatePost(postId, ...payload);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({
+      err: -1,
+      msg: "Failed at post controller" + error,
+    });
+  }
+};

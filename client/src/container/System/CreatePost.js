@@ -17,11 +17,11 @@ const CreatePost = ({ isEdit }) => {
       title: dataEdit?.title || "",
       priceNumber: dataEdit?.priceNumber * 1000000 || 0,
       areaNumber: dataEdit?.areaNumber || 0,
-      images: dataEdit?.images || "",
+      images: JSON.parse(dataEdit?.images?.image) || "",
       address: dataEdit?.address || "",
       priceCode: dataEdit?.priceCode || "",
       areaCode: dataEdit?.areaCode || "",
-      description: dataEdit?.description || "",
+      description: JSON.parse(dataEdit?.description) || "",
       target: dataEdit?.target || "",
       province: dataEdit?.province || "",
     };
@@ -99,26 +99,33 @@ const CreatePost = ({ isEdit }) => {
 
     const result = validate(finalPayload, setInvalidFields);
     if (result === 0) {
-      const response = await apiCreatePost(finalPayload);
-      if (response?.data.err === 0) {
-        Swal.fire("Thành công", "Đã thêm bài đăng mới", "success").then(() => {
-          setPayload({
-            categoryCode: "",
-            title: "",
-            priceNumber: 0,
-            areaNumber: 0,
-            images: "",
-            address: "",
-            priceCode: "",
-            areaCode: "",
-            description: "",
-            target: "",
-            province: "",
-          });
-        });
-      } else {
-        Swal.fire("Oops!", "Có lỗi gì đó", "error");
+      if (dataEdit) {
+        finalPayload.postId = dataEdit?.id;
+        finalPayload.attributesId = dataEdit?.attributesId;
+        finalPayload.imagesId = dataEdit?.imagesId;
+        finalPayload.overviewId = dataEdit?.overviewId;
       }
+      console.log(finalPayload);
+      // const response = await apiCreatePost(finalPayload);
+      // if (response?.data.err === 0) {
+      //   Swal.fire("Thành công", "Đã thêm bài đăng mới", "success").then(() => {
+      //     setPayload({
+      //       categoryCode: "",
+      //       title: "",
+      //       priceNumber: 0,
+      //       areaNumber: 0,
+      //       images: "",
+      //       address: "",
+      //       priceCode: "",
+      //       areaCode: "",
+      //       description: "",
+      //       target: "",
+      //       province: "",
+      //     });
+      //   });
+      // } else {
+      //   Swal.fire("Oops!", "Có lỗi gì đó", "error");
+      // }
     }
   };
 
@@ -198,7 +205,7 @@ const CreatePost = ({ isEdit }) => {
           </div>
           <Button
             onClick={handleSubmit}
-            text="Tạo mới"
+            text={isEdit ? "Cập nhật" : "Tạo mới"}
             bgColor="bg-green-600"
             textColor="text-white"
           />
