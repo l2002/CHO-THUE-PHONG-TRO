@@ -8,16 +8,17 @@ const Button = ({
   onClick,
   fullWidth,
   px,
+  hover,
 }) => {
   return (
     <button
       type="button"
       className={`py-2 ${px} ${textColor} ${bgColor} ${
         fullWidth && "w-full"
-      } outline-none rounded-md flex items-center justify-center gap-1`}
+      } ${hover} outline-none rounded-md flex items-center justify-center gap-1`}
       onClick={onClick}
     >
-      <span>{IcAfter && <IcAfter />}</span>
+      {IcAfter && <span>{<IcAfter />}</span>}
       <span>{text}</span>
     </button>
   );
