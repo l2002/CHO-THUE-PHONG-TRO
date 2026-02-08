@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Address, Button, Loading, Overview } from "../../components";
 import icons from "../../ultils/icons";
 import { apiCreatePost, apiUploadImages } from "../../services";
@@ -33,6 +33,13 @@ const CreatePost = ({ isEdit }) => {
   const { prices, areas, categories } = useSelector((state) => state.app);
   const { currentData } = useSelector((state) => state.user);
   const [invalidFields, setInvalidFields] = useState([]);
+
+  useEffect(() => {
+    if (dataEdit) {
+      let images = JSON.parse(dataEdit?.images?.image);
+      images && setImagePreview(images);
+    }
+  }, [dataEdit]);
 
   const handleFiles = async (e) => {
     e.stopPropagation();

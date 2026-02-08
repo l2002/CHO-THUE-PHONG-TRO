@@ -12,6 +12,7 @@ const targets = [
 const Overview = ({ payload, setPayload, invalidFields, setInvalidFields }) => {
   const { categories } = useSelector((state) => state.app);
   const { currentData } = useSelector((state) => state.user);
+  const { dataEdit } = useSelector((state) => state.post);
   return (
     <div>
       <h2 className="font-semibold text-xl py-4">Thông tin mô tả</h2>
@@ -81,7 +82,7 @@ const Overview = ({ payload, setPayload, invalidFields, setInvalidFields }) => {
           />
 
           <Select
-            value={payload.target}
+            value={dataEdit?.overviews?.target || payload.target}
             setValue={setPayload}
             name="target"
             options={targets}
