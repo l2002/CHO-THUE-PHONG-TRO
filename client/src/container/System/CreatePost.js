@@ -1,28 +1,35 @@
 import { useEffect, useState } from "react";
 import { Address, Button, Loading, Overview } from "../../components";
 import icons from "../../ultils/icons";
-import { apiCreatePost, apiUploadImages } from "../../services";
-import { useSelector } from "react-redux";
+import { apiCreatePost, apiUpdatePost, apiUploadImages } from "../../services";
+import { useDispatch, useSelector } from "react-redux";
 import { getCodesAreas, getCodesPrice } from "../../ultils/Common/getCodes";
 import Swal from "sweetalert2";
 import validate from "../../ultils/Common/validateFields";
+import { resetDataEdit } from "../../store/actions";
 
 const { CameraAltIcon, DeleteIcon } = icons;
 
 const CreatePost = ({ isEdit }) => {
   const { dataEdit } = useSelector((state) => state.post);
+  const dispatch = useDispatch();
+
   const [payload, setPayload] = useState(() => {
     const initData = {
       categoryCode: dataEdit?.categoryCode || "",
       title: dataEdit?.title || "",
       priceNumber: dataEdit?.priceNumber * 1000000 || 0,
       areaNumber: dataEdit?.areaNumber || 0,
-      images: JSON.parse(dataEdit?.images?.image) || "",
+      images: dataEdit?.images?.image
+        ? JSON.parse(dataEdit?.images?.image)
+        : "",
       address: dataEdit?.address || "",
       priceCode: dataEdit?.priceCode || "",
       areaCode: dataEdit?.areaCode || "",
-      description: JSON.parse(dataEdit?.description) || "",
-      target: dataEdit?.target || "",
+      description: dataEdit?.description
+        ? JSON.parse(dataEdit?.description)
+        : "",
+      target: dataEdit?.overviews?.target || "",
       province: dataEdit?.province || "",
     };
     return initData;
@@ -34,6 +41,21 @@ const CreatePost = ({ isEdit }) => {
   const { currentData } = useSelector((state) => state.user);
   const [invalidFields, setInvalidFields] = useState([]);
 
+  const resetPayload = () => {
+    setPayload({
+      categoryCode: "",
+      title: "",
+      priceNumber: 0,
+      areaNumber: 0,
+      images: "",
+      address: "",
+      priceCode: "",
+      areaCode: "",
+      description: "",
+      target: "",
+      province: "",
+    });
+  };
   useEffect(() => {
     if (dataEdit) {
       let images = JSON.parse(dataEdit?.images?.image);
@@ -96,36 +118,39 @@ const CreatePost = ({ isEdit }) => {
       target: payload.target || "Tất cả",
       label: `${categories?.find((item) => item.code === payload?.categoryCode)?.value} ${payload?.address?.split(",")[0]}`,
     };
-
     const result = validate(finalPayload, setInvalidFields);
     if (result === 0) {
-      if (dataEdit) {
+      if (dataEdit && isEdit) {
         finalPayload.postId = dataEdit?.id;
         finalPayload.attributesId = dataEdit?.attributesId;
         finalPayload.imagesId = dataEdit?.imagesId;
         finalPayload.overviewId = dataEdit?.overviewId;
+
+        const response = await apiUpdatePost(finalPayload);
+        if (response?.data.err === 0) {
+          Swal.fire(
+            "Thành công",
+            "Đã chỉnh sửa bài đăng thành công",
+            "success",
+          ).then(() => {
+            resetPayload();
+            dispatch(resetDataEdit());
+          });
+        } else {
+          Swal.fire("Oops!", "Có lỗi gì đó", "error");
+        }
+      } else {
+        const response = await apiCreatePost(finalPayload);
+        if (response?.data.err === 0) {
+          Swal.fire("Thành công", "Đã thêm bài đăng mới", "success").then(
+            () => {
+              resetPayload();
+            },
+          );
+        } else {
+          Swal.fire("Oops!", "Có lỗi gì đó", "error");
+        }
       }
-      console.log(finalPayload);
-      // const response = await apiCreatePost(finalPayload);
-      // if (response?.data.err === 0) {
-      //   Swal.fire("Thành công", "Đã thêm bài đăng mới", "success").then(() => {
-      //     setPayload({
-      //       categoryCode: "",
-      //       title: "",
-      //       priceNumber: 0,
-      //       areaNumber: 0,
-      //       images: "",
-      //       address: "",
-      //       priceCode: "",
-      //       areaCode: "",
-      //       description: "",
-      //       target: "",
-      //       province: "",
-      //     });
-      //   });
-      // } else {
-      //   Swal.fire("Oops!", "Có lỗi gì đó", "error");
-      // }
     }
   };
 

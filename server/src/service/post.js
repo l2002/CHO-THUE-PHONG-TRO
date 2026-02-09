@@ -253,13 +253,13 @@ export const getPostsLimitAdminService = (page, id, query) =>
     }
   });
 
-export const updatePost = (
+export const updatePost = ({
   postId,
   attributesId,
   imagesId,
   overviewId,
   ...body
-) =>
+}) =>
   new Promise(async (resolve, reject) => {
     try {
       const labelCode = generateCode(body.label);

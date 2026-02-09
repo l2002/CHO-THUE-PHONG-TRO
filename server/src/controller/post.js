@@ -93,7 +93,7 @@ export const updatePost = async (req, res) => {
         err: 1,
         msg: "Missing inputs",
       });
-    const response = await postsService.updatePost(postId, ...payload);
+    const response = await postsService.updatePost(req.body);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({

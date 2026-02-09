@@ -82,7 +82,7 @@ const Overview = ({ payload, setPayload, invalidFields, setInvalidFields }) => {
           />
 
           <Select
-            value={dataEdit?.overviews?.target || payload.target}
+            value={payload.target}
             setValue={setPayload}
             name="target"
             options={targets}

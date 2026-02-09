@@ -23,24 +23,28 @@ const Address = ({ setPayload, invalidFields, setInvalidFields }) => {
     "";
 
   useEffect(() => {
-    let addressArr = dataEdit?.address?.split(",");
-    let foundProvince =
-      provinces.length > 0 &&
-      provinces.find(
-        (item) => item.name === addressArr[addressArr.length - 1]?.trim(),
-      );
-    setProvince(foundProvince ? foundProvince.code : "");
-  }, [provinces]);
+    if (dataEdit) {
+      let addressArr = dataEdit?.address?.split(",");
+      let foundProvince =
+        provinces.length > 0 &&
+        provinces.find(
+          (item) => item.name === addressArr[addressArr.length - 1]?.trim(),
+        );
+      setProvince(foundProvince ? foundProvince.code : "");
+    }
+  }, [provinces, dataEdit]);
 
   useEffect(() => {
-    let addressArr = dataEdit?.address?.split(",");
-    let foundDistrict =
-      districts.length > 0 &&
-      districts.find(
-        (item) => item.name === addressArr[addressArr.length - 2]?.trim(),
-      );
-    setDistrict(foundDistrict ? foundDistrict.code : "");
-  }, [districts]);
+    if (dataEdit) {
+      let addressArr = dataEdit?.address?.split(",");
+      let foundDistrict =
+        districts.length > 0 &&
+        districts.find(
+          (item) => item.name === addressArr[addressArr.length - 2]?.trim(),
+        );
+      setDistrict(foundDistrict ? foundDistrict.code : "");
+    }
+  }, [districts, dataEdit]);
 
   useEffect(() => {
     const fetchPublicProvince = async () => {
