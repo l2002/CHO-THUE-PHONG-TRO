@@ -102,3 +102,22 @@ export const updatePost = async (req, res) => {
     });
   }
 };
+
+export const deletePost = async (req, res) => {
+  const { postId } = req.query;
+  const { id } = req.user;
+  try {
+    if (!postId || !id)
+      return res.status(400).json({
+        err: 1,
+        msg: "Missing inputs",
+      });
+    const response = await postsService.deletePost(postId);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({
+      err: -1,
+      msg: "Failed at post controller" + error,
+    });
+  }
+};
