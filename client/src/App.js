@@ -8,7 +8,12 @@ import {
   SearchDetail,
 } from "./container/Public";
 import { path } from "./ultils/constant";
-import { CreatePost, System, ManagePost } from "./container/System";
+import {
+  CreatePost,
+  System,
+  ManagePost,
+  EditAccount,
+} from "./container/System";
 import * as actions from "./store/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -49,6 +54,7 @@ function App() {
         <Route path={path.SYSTEM} element={<System />}>
           <Route path={path.CREATE_POST} element={<CreatePost />} />
           <Route path={path.MANAGE_POST} element={<ManagePost />} />
+          <Route path={path.EDIT_ACCOUNT} element={<EditAccount />} />
         </Route>
       </Routes>
     </div>

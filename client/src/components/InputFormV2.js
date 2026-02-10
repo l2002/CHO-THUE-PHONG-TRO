@@ -9,11 +9,14 @@ const InputFormV2 = ({
   small,
   invalidFields,
   setInvalidFields,
+  direction,
 }) => {
   return (
     <div>
-      <label htmlFor="title">{label}</label>
-      <div className="flex items-center">
+      <div className={`flex ${direction ? direction : "flex-col"}`}>
+        <label className="w-48 flex-none" htmlFor="title">
+          {label}
+        </label>
         <input
           value={value}
           onChange={(e) =>
@@ -31,10 +34,11 @@ const InputFormV2 = ({
         )}
       </div>
       {small && <small className="opacity-70 whitespace-nowrap">{small}</small>}
-      <small className="text-red-500 block w-full">
-        {invalidFields?.some((item) => item.name === name) &&
-          invalidFields?.find((item) => item.name === name)?.message}
-      </small>
+      {invalidFields?.some((item) => item.name === name) && (
+        <small className="text-red-500 block w-full">
+          {invalidFields?.find((item) => item.name === name)?.message}
+        </small>
+      )}
     </div>
   );
 };
