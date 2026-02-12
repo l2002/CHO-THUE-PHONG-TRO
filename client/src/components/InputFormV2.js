@@ -12,33 +12,35 @@ const InputFormV2 = ({
   direction,
 }) => {
   return (
-    <div>
-      <div className={`flex ${direction ? direction : "flex-col"}`}>
-        <label className="w-48 flex-none" htmlFor="title">
-          {label}
-        </label>
-        <input
-          value={value}
-          onChange={(e) =>
-            setValue((prev) => ({ ...prev, [name]: e.target.value }))
-          }
-          onFocus={() => setInvalidFields([])}
-          type="text"
-          id="title"
-          className={`${unit ? "rounded-tl-md rounded-bl-md" : "rounded-md"} outline-none border border-gray-300 flex-auto p-2`}
-        />
-        {unit && (
-          <span className="p-2 border flex-none w-16 flex items-center justify-center rounded-tr-md rounded-br-md bg-gray-200">
-            {unit}
-          </span>
+    <div className={`flex ${direction ? direction : "flex-col"}`}>
+      <label className="w-48 flex-none" htmlFor="title">
+        {label}
+      </label>
+      <div className="flex flex-auto flex-col items-center">
+        <div className="flex w-full items-center">
+          <input
+            value={value}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, [name]: e.target.value }))
+            }
+            onFocus={() => setInvalidFields && setInvalidFields([])}
+            type="text"
+            id="title"
+            className={`${unit ? "rounded-tl-md rounded-bl-md" : "rounded-md"} outline-none border border-gray-300 flex-auto p-2`}
+          />
+          {unit && (
+            <span className="p-2 border flex-none w-16 flex items-center justify-center rounded-tr-md rounded-br-md bg-gray-200">
+              {unit}
+            </span>
+          )}
+        </div>
+        {invalidFields?.some((item) => item.name === name) && (
+          <small className="text-red-500 block w-full">
+            {invalidFields?.find((item) => item.name === name)?.message}
+          </small>
         )}
       </div>
       {small && <small className="opacity-70 whitespace-nowrap">{small}</small>}
-      {invalidFields?.some((item) => item.name === name) && (
-        <small className="text-red-500 block w-full">
-          {invalidFields?.find((item) => item.name === name)?.message}
-        </small>
-      )}
     </div>
   );
 };
