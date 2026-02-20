@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Button, InputFormV2, InputReadOnly } from "../../components";
 import avatar from "../../assets/avatar-facebook-mac-dinh-2.jpg";
-import { useSelector } from "react-redux";
-import { apiUpdateUser, apiUploadImages } from "../../services";
+import { useDispatch, useSelector } from "react-redux";
+import { apiUpdateUser } from "../../services";
 import Swal from "sweetalert2";
+import { blobToBase64, fileToBase64 } from "../../ultils/Common/toBase64";
+import { getCurrent } from "../../store/actions";
 
 const EditAccount = () => {
   const { currentData } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const [payload, setPayload] = useState({
     name: currentData?.name || "",
-    avatar: currentData?.avatar || "",
+    avatar: blobToBase64(currentData?.avatar) || "",
     fbUrl: currentData?.fbUrl || "",
     zalo: currentData?.zalo || "",
   });
@@ -17,25 +20,19 @@ const EditAccount = () => {
   const handleSubmit = async () => {
     const response = await apiUpdateUser(payload);
     if (response?.data.err === 0) {
-      Swal.fire("Thành công", "Cập nhật thành công", "success");
+      Swal.fire("Done", "Cập nhật thành công", "success");
+      dispatch(getCurrent());
     } else {
-      Swal.fire("Oops!", "Có lỗi gì đó", "error");
+      Swal.fire("Oops!", "Cập nhật thất bại", "error");
     }
   };
 
   const handleUploadFile = async (e) => {
-    const imgaes = e.target.files[0];
-    const formData = new FormData();
-
-    formData.append("file", imgaes);
-    formData.append("upload_preset", process.env.REACT_APP_UPLOAD_ASSETS_NAME);
-    const response = await apiUploadImages(formData);
-    if (response.status === 200) {
-      setPayload((prev) => ({
-        ...prev,
-        avatar: response?.data.secure_url,
-      }));
-    }
+    const imageBase64 = await fileToBase64(e.target.files[0]);
+    setPayload((prev) => ({
+      ...prev,
+      avatar: imageBase64,
+    }));
   };
   return (
     <div className="flex flex-col h-full items-center">

@@ -4,6 +4,7 @@ import menuSidebar from "../../ultils/menuSidebar";
 import { NavLink } from "react-router-dom";
 import * as actions from "../../store/actions";
 import icons from "../../ultils/icons";
+import { blobToBase64 } from "../../ultils/Common/toBase64";
 
 const activeStyle =
   "hover:bg-gray-200 flex items-center rounded-md flex py-2 font-bold bg-gray-200 gap-2";
@@ -19,7 +20,7 @@ const Sidebar = () => {
       <div className="flex flex-col gap-4">
         <div className="flex items-center">
           <img
-            src={defaultAvatar}
+            src={blobToBase64(currentData?.avatar) || defaultAvatar}
             alt="avatar"
             className="w-12 h-12 object-cover rounded-full border-2 border-white"
           />
