@@ -6,6 +6,7 @@ import {
   HomePage,
   DetailPost,
   SearchDetail,
+  Contact,
 } from "./container/Public";
 import { path } from "./ultils/constant";
 import {
@@ -46,6 +47,7 @@ function App() {
           <Route path={path.CAN_HO_DICH_VU} element={<Rental />} />
           <Route path={path.CAN_HO_CHUNG_CU} element={<Rental />} />
           <Route path={path.SEARCH} element={<SearchDetail />} />
+          <Route path={path.CONTACT} element={<Contact />} />
           <Route
             path={path.DETAIL_POST__TITLE__POSTID}
             element={<DetailPost />}

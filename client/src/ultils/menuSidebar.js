@@ -24,7 +24,7 @@ const menuSidebar = [
   {
     id: 4,
     text: "Liên hệ",
-    path: "/he-thong/lien-he",
+    path: "/lien-he",
     icon: <AccountCircleIcon />,
   },
 ];
