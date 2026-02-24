@@ -7,6 +7,9 @@ import { Provider } from "react-redux";
 import reduxStore from "./redux";
 import { BrowserRouter } from "react-router-dom";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 const { store, persistor } = reduxStore();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -19,5 +22,5 @@ root.render(
         </BrowserRouter>
       </PersistGate>
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

@@ -32,3 +32,19 @@ input[type="range"]::-webkit-slider-thumb{
 input[type="range"]::-webkit-slider-thumb:active{
    border: solid 1px #50b0f0;
 }
+
+button.slick-arrow::before{
+    font-size: 50px !important;
+    color: yellow !important;
+}
+
+.slick-next{
+    right: 35px !important;
+    top: 45% !important;
+}
+
+.slick-prev{
+    left: 10px !important;
+    top: 45% !important;
+    z-index: 10;
+}
