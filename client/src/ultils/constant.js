@@ -6,13 +6,15 @@ export const path = {
   CAN_HO_MINI: "can-ho-mini",
   CAN_HO_DICH_VU: "can-ho-dich-vu",
   CAN_HO_CHUNG_CU: "can-ho-chung-cu",
-  DETAIL_POST__TITLE__POSTID: "chi-tiet/:title/:postId",
   SEARCH: "tim-kiem",
   SYSTEM: "/he-thong/*",
   CREATE_POST: "tao-moi-bai-dang",
   MANAGE_POST: "quan-ly-bai-dang",
   EDIT_ACCOUNT: "sua-thong-tin-ca-nhan",
   CONTACT: "lien-he",
+  DETAIL_POST_TITLE_POSTID: "chi-tiet/:title/:postId",
+  DETAIL: "/chi-tiet/",
+  DETAIL_ALL: "chi-tiet/*",
 };
 
 export const text = {

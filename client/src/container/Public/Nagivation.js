@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { formatVietnameseToString } from "../../ultils/Common/formatVietnameseToString";
 import { useDispatch, useSelector } from "react-redux";
 import * as actions from "../../store/actions";
+import { path } from "../../ultils/constant";
 
 const notActive =
   "hover:bg-secondary2 py-2 px-4 h-full flex justify-center bg-secondary1";
@@ -44,6 +45,12 @@ function Nagivation({ isAdmin }) {
               </div>
             );
           })}
+        <NavLink
+          to={`/${path.CONTACT}`}
+          className={({ isActive }) => (isActive ? active : notActive)}
+        >
+          Liên hệ
+        </NavLink>
       </div>
     </div>
   );

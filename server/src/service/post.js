@@ -42,22 +42,24 @@ export const getPostsService = () =>
 
 export const getPostsLimitService = (
   page,
-  query,
+  { limitPost, order, ...query },
   { priceNumber, areaNumber },
 ) =>
   new Promise(async (resolve, reject) => {
     try {
       let offset = !page || +page <= 1 ? 0 : +page - 1;
       const queries = { ...query };
+      const limit = +limitPost || +process.env.LIMIT; // "+": chuyen string sang integer
+      queries.limit = limit;
       if (priceNumber) queries.priceNumber = { [Op.between]: priceNumber };
       if (areaNumber) queries.areaNumber = { [Op.between]: areaNumber };
+      if (order) queries.order = [order];
       const response = await db.Post.findAndCountAll({
-        where: queries,
+        where: query,
         raw: true,
         nest: true,
-        offset: offset * +process.env.LIMIT,
-        limit: +process.env.LIMIT, // chuyen string sang integer
-        order: [["createdAt", "DESC"]],
+        offset: offset * limit,
+        ...queries,
         include: [
           {
             model: db.Image,

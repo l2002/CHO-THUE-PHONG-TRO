@@ -49,9 +49,10 @@ function App() {
           <Route path={path.SEARCH} element={<SearchDetail />} />
           <Route path={path.CONTACT} element={<Contact />} />
           <Route
-            path={path.DETAIL_POST__TITLE__POSTID}
+            path={path.DETAIL_POST_TITLE_POSTID}
             element={<DetailPost />}
           />
+          {/* <Route path={path.DETAIL_ALL} element={<DetailPost />} /> */}
         </Route>
         <Route path={path.SYSTEM} element={<System />}>
           <Route path={path.CREATE_POST} element={<CreatePost />} />

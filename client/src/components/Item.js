@@ -2,6 +2,7 @@ import { memo, useState } from "react";
 import icons from "../ultils/icons";
 import { useNavigate, Link } from "react-router-dom";
 import { formatVietnameseToString } from "../ultils/Common/formatVietnameseToString";
+import { path } from "../ultils/constant";
 
 const { StarIcon, FavoriteBorderIcon, FavoriteIcon } = icons;
 
@@ -18,12 +19,11 @@ const Item = ({
   id,
 }) => {
   const [isHoverHeart, setIsHoverHeart] = useState(false);
-  const navigate = useNavigate();
 
   return (
     <div className="w-full flex border-t border-orange-600 py-4">
       <Link
-        to={`chi-tiet/${formatVietnameseToString(title)}/${id}`}
+        to={`${path.DETAIL}${formatVietnameseToString(title?.replaceAll("/", ""))}/${id}`}
         className="w-2/5 flex flex-wrap gap-[2px] items-center relative cursor-pointer"
       >
         {images.length > 0 &&
@@ -56,12 +56,15 @@ const Item = ({
       </Link>
       <div className="w-3/5">
         <div className="flex justify-between gap-4">
-          <div className="text-blue-800 font-medium">
+          <Link
+            to={`${path.DETAIL}${formatVietnameseToString(title?.replaceAll("/", ""))}/${id}`}
+            className="text-blue-800 font-medium hover:underline"
+          >
             {Array.from({ length: star }).map((_, i) => (
               <StarIcon key={i} className="text-yellow-400" />
             ))}
             {title}
-          </div>
+          </Link>
         </div>
         <div className="flex gap-4">
           <span className="text-green-600 font-bold">{attributes?.price}</span>
