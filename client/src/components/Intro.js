@@ -25,7 +25,7 @@ const Intro = () => {
                   key={item.code}
                   className="text-blue-600 font-medium hover:text-orange-500"
                 >
-                  {`${item.value.toLowerCase()}, `}
+                  {`${item?.value?.toLowerCase()}, `}
                 </Link>
               );
             })}

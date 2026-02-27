@@ -30,6 +30,32 @@ const dataBody = [
   },
 ];
 
+const categories = [
+  {
+    code: "NNC",
+    value: "Nhà nguyên căn",
+    header: "Cho Thuê Nhà Nguyên Căn, Giá Rẻ, Chính Chủ, Mới Nhất 2025",
+    subheader: "",
+  },
+  {
+    code: "CHMN",
+    value: "Căn hộ mini",
+    header: "Cho Thuê Căn Hộ Mini + Chung Cư Mini Giá Rẻ, Mới Nhất 2025",
+    subheader: "",
+  },
+  {
+    code: "CHDV",
+    value: "Căn hộ dịch vụ",
+    header: "Cho Cho Thuê Căn Hộ Dịch Vụ, Giá Rẻ, Mới Nhất 2025",
+    subheader: "",
+  },
+  {
+    code: "CHCC",
+    value: "Căn hộ chung cư",
+    header: "Cho Thuê Căn Hộ Chung Cư, Giá Rẻ, View Đẹp, Mới Nhất 2025",
+    subheader: "",
+  },
+];
 const hashPassword = (password) =>
   bcrypt.hashSync(password, bcrypt.genSaltSync(12));
 
@@ -38,6 +64,25 @@ export const insertService = () =>
     try {
       const provinceCodes = [];
       const labelCodes = [];
+
+      await db.Category.bulkCreate(categories);
+
+      dataPrice.forEach(async (item, index) => {
+        await db.Price.create({
+          code: item.code,
+          value: item.value,
+          order: index + 1,
+        });
+      });
+
+      dataArea.forEach(async (item, index) => {
+        await db.Area.create({
+          code: item.code,
+          value: item.value,
+          order: index + 1,
+        });
+      });
+
       dataBody.forEach((cate) => {
         cate.body.forEach(async (item) => {
           let postId = v4();
@@ -145,26 +190,26 @@ export const insertService = () =>
     }
   });
 
-export const createPricesAndAreas = () =>
-  new Promise((resolve, reject) => {
-    try {
-      dataPrice.forEach(async (item, index) => {
-        await db.Price.create({
-          code: item.code,
-          value: item.value,
-          order: index + 1,
-        });
-      });
+// export const createPricesAndAreas = () =>
+//   new Promise((resolve, reject) => {
+//     try {
+//       dataPrice.forEach(async (item, index) => {
+//         await db.Price.create({
+//           code: item.code,
+//           value: item.value,
+//           order: index + 1,
+//         });
+//       });
 
-      dataArea.forEach(async (item, index) => {
-        await db.Area.create({
-          code: item.code,
-          value: item.value,
-          order: index + 1,
-        });
-      });
-      resolve("OK");
-    } catch (error) {
-      reject(error);
-    }
-  });
+//       dataArea.forEach(async (item, index) => {
+//         await db.Area.create({
+//           code: item.code,
+//           value: item.value,
+//           order: index + 1,
+//         });
+//       });
+//       resolve("OK");
+//     } catch (error) {
+//       reject(error);
+//     }
+//   });
