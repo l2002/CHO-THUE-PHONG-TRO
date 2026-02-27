@@ -9,6 +9,7 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
     logging: false,
+
     dialectOptions: {
       ssl: {
         require: true,
@@ -18,12 +19,13 @@ const sequelize = new Sequelize(
   },
 );
 
-const connectDB = () => {
+const connectDB = async () => {
   try {
-    sequelize.authenticate();
+    await sequelize.authenticate();
     console.log("Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
+    process.exit(1);
   }
 };
 

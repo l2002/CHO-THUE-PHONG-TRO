@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "db_phongtro123_a4nr_user",
-    "password": "VS5HgEQVoo5L0ctYbblxJSfAdC5Dbamj",
-    "database": "db_phongtro123_a4nr",
-    "host": "dpg-d6fuaq3h46gs738kj070-a.singapore-postgres.render.com",
+    "username": "db_phongtro123_th2f_user",
+    "password": "BSi1eDMpE8DeJIZ9dEh0sWLX6HcCXlwA",
+    "database": "db_phongtro123_th2f",
+    "host": "dpg-d6gke8vkijhs73ev4vgg-a.singapore-postgres.render.com",
     "dialect": "postgres",
     "logging": false,
     "dialectOptions":{
@@ -15,10 +15,10 @@
   },
 
   "production": {
-    "username": "db_phongtro123_a4nr_user",
-    "password": "VS5HgEQVoo5L0ctYbblxJSfAdC5Dbamj",
-    "database": "db_phongtro123_a4nr",
-    "host": "dpg-d6fuaq3h46gs738kj070-a.singapore-postgres.render.com",
+    "username": "db_phongtro123_th2f_user",
+    "password": "BSi1eDMpE8DeJIZ9dEh0sWLX6HcCXlwA",
+    "database": "db_phongtro123_th2f",
+    "host": "dpg-d6gke8vkijhs73ev4vgg-a.singapore-postgres.render.com",
     "dialect": "postgres",
     "dialectOptions":{
       "ssl":{
