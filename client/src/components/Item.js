@@ -26,7 +26,7 @@ const Item = ({
         to={`${path.DETAIL}${formatVietnameseToString(title?.replaceAll("/", ""))}/${id}`}
         className="w-2/5 flex flex-wrap gap-[2px] items-center relative cursor-pointer"
       >
-        {images.length > 0 &&
+        {images?.length > 0 &&
           images
             .filter((i, index) => indexs.some((i) => i === index))
             ?.map((i, index) => {

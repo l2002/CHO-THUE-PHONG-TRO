@@ -13,17 +13,25 @@ const allowedOrigins = [
 const app = express();
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // Cho phép các request không có origin (như Postman) hoặc nằm trong danh sách allowedOrigins
-      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Chặn bởi CORS: Origin không hợp lệ"));
-      }
+    origin: (origin, callback) => {
+      callback(null, true);
     },
-    methods: ["POST", "GET", "PUT", "DELETE"],
+    credentials: true,
   }),
 );
+// app.use(
+//   cors({
+//     origin: function (origin, callback) {
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error("Not allowed by CORS"));
+//       }
+//     },
+//     methods: ["GET", "POST", "PUT", "DELETE"],
+//     credentials: true,
+//   })
+// );
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
