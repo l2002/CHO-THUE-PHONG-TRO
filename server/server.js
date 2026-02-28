@@ -5,10 +5,22 @@ import initRoutes from "./src/routes";
 import connectDB from "./src/config/connectDB";
 import qs from "qs";
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://cho-thue-phong-tro.vercel.app",
+];
+
 const app = express();
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: function (origin, callback) {
+      // Cho phép các request không có origin (như Postman) hoặc nằm trong danh sách allowedOrigins
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Chặn bởi CORS: Origin không hợp lệ"));
+      }
+    },
     methods: ["POST", "GET", "PUT", "DELETE"],
   }),
 );
