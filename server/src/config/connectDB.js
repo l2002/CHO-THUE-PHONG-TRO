@@ -2,12 +2,14 @@ const { Sequelize } = require("sequelize");
 
 // Option 3: Passing parameters separately (other dialects)
 const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USERNAME,
-  process.env.DB_PASSWORD,
+  // process.env.DB_NAME,
+  // process.env.DB_USERNAME,
+  // process.env.DB_PASSWORD,
+  process.env.DATABASE_URL,
   {
-    host: process.env.DB_HOST,
+    // host: process.env.DB_HOST,
     dialect: process.env.DB_DIALECT,
+    protocol: process.env.DB_DIALECT,
     logging: false,
 
     dialectOptions: {
@@ -22,9 +24,9 @@ const sequelize = new Sequelize(
 const connectDB = async () => {
   try {
     await sequelize.authenticate();
-    console.log("Connection has been established successfully.");
+    console.log("Neon connected");
   } catch (error) {
-    console.error("Unable to connect to the database:", error);
+    console.error("❌ DB error:", error);
     process.exit(1);
   }
 };
