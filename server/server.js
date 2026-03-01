@@ -41,6 +41,15 @@ app.set("query parser", (str) => qs.parse(str));
 initRoutes(app);
 connectDB();
 
+app.get("/ping", async (req, res) => {
+  try {
+    await sequelize.query("SELECT 1");
+    res.send("ok");
+  } catch (e) {
+    res.status(500).send("error");
+  }
+});
+
 const port = process.env.PORT || 8888;
 const listener = app.listen(port, () => {
   console.log(`Server is running on the port ${listener.address().port}`);
