@@ -18,6 +18,9 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CameraAltIcon from "@mui/icons-material/CameraAlt";
 import DeleteIcon from "@mui/icons-material/Delete";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import PhoneIcon from "@mui/icons-material/Phone";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 const icons = {
   LoginIcon,
@@ -40,6 +43,9 @@ const icons = {
   AccountCircleIcon,
   CameraAltIcon,
   DeleteIcon,
+  FiberManualRecordIcon,
+  PhoneIcon,
+  WhatsAppIcon,
 };
 
 export default icons;

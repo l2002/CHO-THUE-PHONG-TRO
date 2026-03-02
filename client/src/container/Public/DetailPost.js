@@ -4,6 +4,7 @@ import * as actions from "../../store/actions";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import SliderCustom from "../../components/SliderCustom";
+import { BoxInfo, RelatedPost } from "../../components";
 
 const DetailPost = () => {
   const { postId } = useParams();
@@ -181,7 +182,10 @@ const DetailPost = () => {
           </div>
         </div>
       </div>
-      <div className="w-[30%]">Sidebar</div>
+      <div className="w-[30%] flex flex-col gap-8">
+        <BoxInfo userData={posts[0]?.user} />
+        <RelatedPost />
+      </div>
     </div>
   );
 };
