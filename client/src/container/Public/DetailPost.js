@@ -10,13 +10,10 @@ const DetailPost = () => {
   const { postId } = useParams();
   const { posts } = useSelector((state) => state.post);
   const dispatch = useDispatch();
-  console.log(posts[0]?.description);
 
   useEffect(() => {
     postId && dispatch(actions.getPostsLimit({ id: postId }));
   }, [postId]);
-
-  console.log(posts);
 
   return (
     <div className="w-full flex gap-4">
@@ -29,13 +26,13 @@ const DetailPost = () => {
         <div className="flex flex-col mt-2 gap-2 shadow-md rounded-md bg-white p-4">
           <h2 className="text-xl font-bold text-red-600">{posts[0]?.title}</h2>
 
-          <div class="flex justify-between">
-            <div class="flex items-center">
-              <span class="text-green-600 text-lg font-bold">
+          <div className="flex justify-between">
+            <div className="flex items-center">
+              <span className="text-green-600 text-lg font-bold">
                 {posts[0]?.attributes?.price}
               </span>
 
-              <span class="mx-3 w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
+              <span className="mx-3 w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
 
               <span>{posts[0]?.attributes?.acreage}</span>
             </div>
@@ -185,6 +182,7 @@ const DetailPost = () => {
       <div className="w-[30%] flex flex-col gap-8">
         <BoxInfo userData={posts[0]?.user} />
         <RelatedPost />
+        <RelatedPost newPost />
       </div>
     </div>
   );
