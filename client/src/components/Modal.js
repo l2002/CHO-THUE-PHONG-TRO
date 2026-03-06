@@ -69,8 +69,8 @@ const Modal = ({
     return name === "price"
       ? (Math.ceil(Math.round(percent * 1.5) / 5) * 5) / 10
       : name === "area"
-      ? Math.ceil(Math.round(percent * 0.9) / 5) * 5
-      : 0;
+        ? Math.ceil(Math.round(percent * 0.9) / 5) * 5
+        : 0;
   };
   const convertto100 = (percent) => {
     let target = name === "price" ? 15 : name === "area" ? 90 : 1;
@@ -104,24 +104,24 @@ const Modal = ({
   const handleBeforeSubmit = (e) => {
     let min = percent1 <= percent2 ? percent1 : percent2;
     let max = percent1 <= percent2 ? percent2 : percent1;
-    let arrMinMax = [convert100toTarget(min), convert100toTarget(max)];
-    // const gaps =
-    //   name === "price"
-    //     ? getCodesPrice(arrMinMax, content)
-    //     : name === "area"
-    //     ? getCodesAreas(arrMinMax, content)
-    //     : [];
+    let arrMinMax =
+      percent1 === percent2 && percent1 === 100
+        ? [convert100toTarget(min), 99999]
+        : [convert100toTarget(min), convert100toTarget(max)];
+
     handelSubmit(
       e,
       {
         [`${name}Number`]: arrMinMax,
-        [name]: `Từ ${convert100toTarget(min)} - ${convert100toTarget(max)} ${
-          name === "price" ? "triệu" : "m2"
-        }`,
+        [name]: `Từ ${convert100toTarget(min)}${
+          percent1 === percent2 && percent1 === 100
+            ? ""
+            : ` - ${convert100toTarget(max)}`
+        } ${name === "price" ? "triệu" : "m2"}`,
       },
       {
         [`${name}Arr`]: [min, max],
-      }
+      },
     );
   };
 

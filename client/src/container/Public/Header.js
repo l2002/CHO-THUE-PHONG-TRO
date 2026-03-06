@@ -106,6 +106,7 @@ function Header() {
             textColor="text-white"
             bgColor="bg-[#FF5723]"
             IcAfter={PostAddIcon}
+            onClick={() => navigate("/he-thong/tao-moi-bai-dang")}
           />
         </div>
       </div>

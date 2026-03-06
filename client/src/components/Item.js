@@ -6,8 +6,6 @@ import { path } from "../ultils/constant";
 
 const { StarIcon, FavoriteBorderIcon, FavoriteIcon } = icons;
 
-const indexs = [0, 1, 2, 3];
-
 const Item = ({
   address,
   attributes,
@@ -28,7 +26,7 @@ const Item = ({
       >
         {images?.length > 0 &&
           images
-            .filter((i, index) => indexs.some((i) => i === index))
+            .filter((i, index) => [...Array(4).keys()].some((i) => i === index))
             ?.map((i, index) => {
               return (
                 <img

@@ -29,16 +29,19 @@ export const location = [
     name: "Phòng trọ Hồ Chí Minh",
     image:
       "https://tragodi.com/wp-content/uploads/2024/02/ho-chi-minh-city.jpg",
+    provinceCode: "CHMN",
   },
   {
     id: "hn",
     name: "Phòng trọ Hà Nội",
     image: "https://asiatravel.net.vn/upload/images/tbl_news_1740110995.jpg",
+    provinceCode: "NNIT",
   },
   {
-    id: "dn",
-    name: "Phòng trọ Đà Nẵng",
+    id: "vt",
+    name: "Phòng trọ Vũng Tàu",
     image:
-      "https://i1-dulich.vnecdn.net/2022/06/03/cau-vang-jpeg-9366-1654247848.jpg?w=0&h=0&q=100&dpr=1&fit=crop&s=lsuryIIgmI4xtUp5BVdw3g",
+      "https://homaypark.com/wp-content/uploads/2025/06/kham-pha-ve-dep-tuyet-voi-cua-du-lich-vung-tau-trai-nghiem-nang-cao-voi-nhung-diem-den-khong-the-bo-qua-68502b016586b.jpg",
+    provinceCode: "RUVO",
   },
 ];
