@@ -26,7 +26,7 @@ function Search() {
   const location = useLocation();
 
   const { areas, prices, provinces, categories } = useSelector(
-    (state) => state.app
+    (state) => state.app,
   );
 
   useEffect(() => {
@@ -45,12 +45,12 @@ function Search() {
 
   const handleSubmit = useCallback(
     (e, query, arrMinMax) => {
-      e.stopPropagation();
+      e?.stopPropagation();
       setQueries((prev) => ({ ...prev, ...query }));
       setIsShowModal(false);
       arrMinMax && setArrMinMax((prev) => ({ ...prev, ...arrMinMax }));
     },
-    [isShowModal, queries]
+    [isShowModal, queries],
   );
 
   const handleSearch = () => {
@@ -62,7 +62,7 @@ function Search() {
       queryCodesObj[item[0]] = item[1];
     });
     const queryText = Object.entries(queries).filter(
-      (item) => !item[0].includes("Number") || !item[0].includes("Code")
+      (item) => !item[0].includes("Number") && !item[0].includes("Code"),
     );
     let queryTextObj = {};
     queryText.forEach((item) => {
@@ -80,7 +80,7 @@ function Search() {
         pathname: `/${path.SEARCH}`,
         search: createSearchParams(queryCodesObj).toString(),
       },
-      { state: { titleSearch } }
+      { state: { titleSearch } },
     );
   };
   return (
@@ -146,7 +146,7 @@ function Search() {
           queries={queries}
           defaultText={defaultText}
           setIsShowModal={setIsShowModal}
-          handelSubmit={handleSubmit}
+          handleSubmit={handleSubmit}
           arrMinMax={arrMinMax}
         />
       )}

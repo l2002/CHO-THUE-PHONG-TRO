@@ -12,7 +12,7 @@ const Modal = ({
   setIsShowModal,
   content,
   name,
-  handelSubmit,
+  handleSubmit,
   queries,
   arrMinMax,
   defaultText,
@@ -109,7 +109,7 @@ const Modal = ({
         ? [convert100toTarget(min), 99999]
         : [convert100toTarget(min), convert100toTarget(max)];
 
-    handelSubmit(
+    handleSubmit(
       e,
       {
         [`${name}Number`]: arrMinMax,
@@ -127,7 +127,7 @@ const Modal = ({
 
   return (
     <div
-      onClick={(e) => {
+      onClick={() => {
         setIsShowModal(false);
       }}
       className="fixed top-0 bottom-0 left-0 right-0 bg-overlay-30 z-20 flex justify-center items-center"
@@ -158,7 +158,7 @@ const Modal = ({
                 value={defaultText || ""}
                 checked={!queries[`${name}Code`] ? true : false}
                 onChange={(e) =>
-                  handelSubmit(e, {
+                  handleSubmit(e, {
                     [name]: defaultText,
                     [`${name}Code`]: null,
                   })
@@ -181,7 +181,7 @@ const Modal = ({
                       item.code === queries[`${name}Code`] ? true : false
                     }
                     onChange={(e) =>
-                      handelSubmit(e, {
+                      handleSubmit(e, {
                         [name]: item.value,
                         [`${name}Code`]: item.code,
                       })

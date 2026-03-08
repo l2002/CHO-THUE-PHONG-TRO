@@ -1,17 +1,11 @@
 {
-  "development": {
-    "username": "db_phongtro123_th2f_user",
-    "password": "BSi1eDMpE8DeJIZ9dEh0sWLX6HcCXlwA",
-    "database": "db_phongtro123_th2f",
-    "host": "dpg-d6gke8vkijhs73ev4vgg-a.singapore-postgres.render.com",
-    "dialect": "postgres",
-    "logging": false,
-    "dialectOptions":{
-      "ssl":{
-        "require":true,
-        "rejectUnauthorized":false
-      }
-    }
+ "development": {
+    "username": "root",
+    "password": null,
+    "database": "phongtro123",
+    "host": "127.0.0.1",
+    "dialect": "mysql",
+    "logging": false
   },
 
   "production": {

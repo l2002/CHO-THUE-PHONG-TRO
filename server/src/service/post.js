@@ -51,8 +51,8 @@ export const getPostsLimitService = (
       const queries = { ...query };
       const limit = +limitPost || +process.env.LIMIT; // "+": chuyen string sang integer
       queries.limit = limit;
-      if (priceNumber) queries.priceNumber = { [Op.between]: priceNumber };
-      if (areaNumber) queries.areaNumber = { [Op.between]: areaNumber };
+      if (priceNumber) query.priceNumber = { [Op.between]: priceNumber };
+      if (areaNumber) query.areaNumber = { [Op.between]: areaNumber };
       if (order) queries.order = [order];
       const response = await db.Post.findAndCountAll({
         where: query,
@@ -79,6 +79,11 @@ export const getPostsLimitService = (
           {
             model: db.Overview,
             as: "overviews",
+          },
+          {
+            model: db.Label,
+            as: "labelData",
+            attributes: { exclude: ["createdAt", "updatedAt"] },
           },
         ],
         attributes: ["id", "title", "star", "address", "description"],

@@ -26,7 +26,7 @@ const dataBody = [
   },
   {
     body: nhanguyencan,
-    code: "NNC ",
+    code: "NNC",
   },
 ];
 

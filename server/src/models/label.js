@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Label.hasMany(models.Post, { foreignKey: "labelCode", as: "labelData" });
     }
   }
   Label.init(
@@ -19,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "Label",
-    }
+    },
   );
   return Label;
 };

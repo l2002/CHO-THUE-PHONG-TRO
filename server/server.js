@@ -5,10 +5,10 @@ import initRoutes from "./src/routes";
 import connectDB from "./src/config/connectDB";
 import qs from "qs";
 
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://cho-thue-phong-tro.vercel.app",
-];
+// const allowedOrigins = [
+//   "http://localhost:3000",
+//   "https://cho-thue-phong-tro.vercel.app",
+// ];
 
 const app = express();
 app.use(

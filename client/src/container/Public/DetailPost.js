@@ -1,19 +1,34 @@
-import { useParams } from "react-router-dom";
+import { createSearchParams, useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import * as actions from "../../store/actions";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import SliderCustom from "../../components/SliderCustom";
 import { BoxInfo, RelatedPost } from "../../components";
+import { path } from "../../ultils/constant";
 
 const DetailPost = () => {
   const { postId } = useParams();
   const { posts } = useSelector((state) => state.post);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     postId && dispatch(actions.getPostsLimit({ id: postId }));
   }, [postId]);
+
+  const handleFilterLabel = () => {
+    const titleSearch = `Tìm kiếm tin đăng theo chuyên mục ${posts[0]?.labelData?.value}`;
+    navigate(
+      {
+        pathname: `/${path.SEARCH}`,
+        search: createSearchParams({
+          labelCode: posts[0]?.labelData?.code,
+        }).toString(),
+      },
+      { state: { titleSearch } },
+    );
+  };
 
   return (
     <div className="w-full flex gap-4">
@@ -55,18 +70,17 @@ const DetailPost = () => {
                     </div>
                   </td>
                   <td className="pb-1">
-                    <a
-                      href="https://phongtro123.com/tinh-thanh/ho-chi-minh/quan-binh-tan"
-                      className="underline text-blue-600 hover:text-blue-800"
-                      title="Cho thuê phòng trọ Quận Bình Tân"
+                    <span
+                      onClick={handleFilterLabel}
+                      className="underline text-blue-600 hover:text-orange-400 cursor-pointer"
                     >
-                      {posts[0]?.overviews?.area}
-                    </a>
+                      {posts[0]?.labelData?.value}
+                    </span>
                   </td>
                 </tr>
 
                 <tr>
-                  <td className="pl-0 pb-1">
+                  <td className="pl-0 pb-1 whitespace-nowrap">
                     <div className="flex items-center text-gray-500">
                       <span className="text-blue-300 text-2xl leading-none mr-1">
                         •
@@ -74,16 +88,7 @@ const DetailPost = () => {
                       Tỉnh thành:
                     </div>
                   </td>
-                  <td className="pb-1">
-                    <div className="flex">
-                      <a
-                        href="/tinh-thanh/ho-chi-minh"
-                        className="underline text-blue-600 hover:text-blue-800"
-                      >
-                        <p>{`${posts[0]?.address.split(",")[posts[0]?.address.split(",").length - 1]}`}</p>
-                      </a>
-                    </div>
-                  </td>
+                  <td className="pb-1">{`${posts[0]?.address.split(",")[posts[0]?.address.split(",").length - 1]}`}</td>
                 </tr>
 
                 <tr>
