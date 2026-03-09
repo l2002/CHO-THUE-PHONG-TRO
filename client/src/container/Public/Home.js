@@ -4,15 +4,40 @@ import { Search, Nagivation } from "./index";
 import { Contact, Intro } from "../../components";
 import { useSelector } from "react-redux";
 import { path } from "../../ultils/constant";
+import { useEffect, useRef } from "react";
 
 const Home = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
   const location = useLocation();
+  const navRef = useRef();
 
+  useEffect(() => {
+    const handleScroll = (e) => {
+      if (window.pageYOffset >= 134) {
+        navRef.current.style.cssText = `
+          position:fixed;
+          top:0;
+          left:0;
+          right:0;
+          z-index:50;
+        `;
+      } else {
+        navRef.current.style.cssText = `
+          width:100%
+        `;
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
   return (
-    <div className="w-full flex flex-col items-center h-full gap-4">
+    <div className="w-full flex flex-col items-center h-full gap-6">
       <Header />
-      <Nagivation />
+      <div ref={navRef} className="w-full">
+        <Nagivation />
+      </div>
       {isLoggedIn &&
         location.pathname !== `/${path.CONTACT}` &&
         !location.pathname?.includes(path.DETAIL) && <Search />}
